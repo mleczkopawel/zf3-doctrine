@@ -22,12 +22,6 @@ if (php_sapi_name() === 'cli-server') {
 defined('APPLICATION_ENV') || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
 define('ROOT_PATH', dirname(__DIR__));
 
-
-if (strpos(APPLICATION_ENV, "dev") !== FALSE || APPLICATION_ENV == 'volodia') {
-    error_reporting(E_ALL);
-    ini_set('display_errors', 1);
-}
-
 // Composer autoloading
 include __DIR__ . '/../vendor/autoload.php';
 

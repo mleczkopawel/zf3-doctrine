@@ -8,7 +8,15 @@
 namespace Application\Interfaces;
 
 
+/**
+ * Interface AbstractFactory
+ * @package Application\Interfaces
+ */
 interface AbstractFactory
 {
+    /**
+     * @param $entityName
+     * @return mixed
+     */
     public function create($entityName);
 }

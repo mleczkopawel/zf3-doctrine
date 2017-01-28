@@ -11,7 +11,7 @@ class Module
 {
 
     //    KONFIGURACJA GLOBALNYCH
-    const VERSION = '3.0.2aaadev';
+    const VERSION = '3.0.2aaaasdasdasdasddev';
 
     public function getConfig()
     {

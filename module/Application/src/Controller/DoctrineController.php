@@ -3,36 +3,56 @@
 namespace Application\Controller;
 
 use Application\Entity\Album;
-use Application\Interfaces\CreateEntity;
+use Application\Interfaces\CreateEntityFactory;
 use Doctrine\ORM\EntityManager;
 use Exception;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
+/**
+ * Class DoctrineController
+ * @package Application\Controller
+ */
 class DoctrineController extends AbstractActionController
 {
-    private $em;
+    /**
+     * @var EntityManager
+     */
+    private $_em;
+    /**
+     * @var CreateEntityFactory
+     */
+    private $_cef;
 
+    /**
+     * DoctrineController constructor.
+     * @param EntityManager $em
+     */
     public function __construct(EntityManager $em)
     {
-        $this->em = $em;
+        $this->_em = $em;
+        $this->_cef = new CreateEntityFactory();
     }
 
+    /**
+     * @return ViewModel
+     * @throws Exception
+     */
     public function indexAction()
     {
-        $album = (new CreateEntity())->create('Album');
-//        if ($album) {
-            $album->setName('nazwa5');
-            $album->setCreatedAt(new \DateTime(date('d.m.Y')));
+        $album = $this->_cef->create(Album::class);
+        if ($album) {
+            $album->setName('nazwa5555');
+            $album->setDateAdd(new \DateTime(date('d.m.Y')));
 
-            $this->em->persist($album);
-            $this->em->flush();
-//        } else {
-//            throw new Exception('Nie można utworzyć!');
-//        }
+            $this->_em->persist($album);
+            $this->_em->flush();
+        } else {
+            throw new Exception('Nie można utworzyć!');
+        }
 
         return new ViewModel([
-            'albums' => $this->em->getRepository(Album::class)->findAll(),
+            'albums' => $this->_em->getRepository(Album::class)->findAll(),
         ]);
     }
 }

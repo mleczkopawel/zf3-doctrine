@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="moje_szkolenie_zf3@localhost" uuid="5a50bda8-b6ab-43cb-9fc7-b787021bc38f">
+    <data-source source="LOCAL" name="szkolenie_zf3@localhost" uuid="9a8cdb91-7e2a-4de4-87f9-ce3ca0a70859">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/moje_szkolenie_zf3</jdbc-url>
+      <jdbc-url>jdbc:mysql://localhost:3306/szkolenie_zf3</jdbc-url>
       <driver-properties>
         <property name="autoReconnect" value="true" />
         <property name="zeroDateTimeBehavior" value="convertToNull" />
@@ -14,12 +14,6 @@
         <property name="characterSetResults" value="utf8" />
         <property name="yearIsDateType" value="false" />
       </driver-properties>
-    </data-source>
-    <data-source source="LOCAL" name="zf3-doctrine.sqlite" uuid="7f113600-34e8-44cc-bea6-813f2ef76c8c">
-      <driver-ref>sqlite.xerial</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/data/zf3-doctrine.sqlite</jdbc-url>
     </data-source>
   </component>
 </project>

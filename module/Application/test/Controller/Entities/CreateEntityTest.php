@@ -9,6 +9,7 @@ namespace ApplicationTest\Controller\Entities;
 
 
 use Application\Interfaces\CreateEntity;
+use Application\Interfaces\CreateEntityFactory;
 use PHPUnit_Framework_TestCase;
 
 class CreateEntityTest extends PHPUnit_Framework_TestCase
@@ -20,12 +21,12 @@ class CreateEntityTest extends PHPUnit_Framework_TestCase
      */
     public function __construct()
     {
-        $this->entities = ['Album', 'AL'];
+        $this->entities = ['Album'];
     }
 
 
     public function testCreateEntityTest() {
-        $createEntityFactory = new CreateEntity();
+        $createEntityFactory = new CreateEntityFactory();
         foreach ($this->entities as $entity) {
             $ent = $createEntityFactory->create($entity);
             $this->assertInstanceOf('Application\Entity\\' . $entity , $ent);

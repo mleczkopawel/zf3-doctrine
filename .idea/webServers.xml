@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="8b3aa4cb-9bfe-4bf9-9069-29f13e0e5665" name="ZF3d" url="zf3d.sony">
+        <fileTransfer host="192.168.0.12" port="666" rootFolder="/var/www/html/zf3d.sony" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="666" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

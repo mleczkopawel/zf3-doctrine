@@ -34,7 +34,50 @@ class Album implements MainDbInterface
      *
      * @ORM\Column(name="created_at", type="datetime", nullable=true)
      */
-    private $createdAt;
+    private $dateAdd;
+
+    /**
+     * @return \DateTime
+     */
+    public function getDateAdd()
+    {
+        return $this->dateAdd;
+    }
+
+    /**
+     * @param \DateTime $dateAdd
+     * @return Album
+     */
+    public function setDateAdd($dateAdd)
+    {
+        $this->dateAdd = $dateAdd;
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDateEdit()
+    {
+        return $this->dateEdit;
+    }
+
+    /**
+     * @param \DateTime $dateEdit
+     * @return Album
+     */
+    public function setDateEdit($dateEdit)
+    {
+        $this->dateEdit = $dateEdit;
+        return $this;
+    }
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="edited_at", type="datetime", nullable=true)
+     */
+    private $dateEdit;
 
     /**
      * @return int
@@ -69,24 +112,6 @@ class Album implements MainDbInterface
     public function setName($name)
     {
         $this->name = $name;
-        return $this;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * @param \DateTime $createdAt
-     * @return Album
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
         return $this;
     }
 

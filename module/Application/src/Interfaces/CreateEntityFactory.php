@@ -11,21 +11,18 @@ use Application\Entity\AL;
 use Application\Entity\Album;
 
 /**
- * Class CreateEntity
+ * Class CreateEntityFactory
  * @package Application\Interfaces
  */
-class CreateEntity implements AbstractFactory
+class CreateEntityFactory implements AbstractFactory
 {
     /**
-     * @return AL|Album|bool
+     * @return Album|bool
      */
     public function create($entityName) {
         switch ($entityName) {
-            case 'Album': {
+            case Album::class: {
                 return new Album();
-            } break;
-            case 'AL': {
-                return new AL();
             } break;
             default: {
                 return false;

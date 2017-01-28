@@ -11,36 +11,6 @@
  * file.
  */
 
-use Doctrine\DBAL\Driver\PDOMySql\Driver;
-use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
-
 return [
-    'doctrine' => [
-        'connection' => [
-            'orm_default' => [
-                'driverClass' => Driver::class,
-                'params' => [
-                    'host' => 'host',
-                    'port' => 'port',
-                    'user' => 'user',
-                    'password' => 'password',
-                    'dbname' => 'dbname',
-                ],
-            ],
-        ],
-        'driver' => [
-            'Doctrine_driver' => [
-                'class' => AnnotationDriver::class,
-                'cache' => 'array',
-                'paths' => [
-                    __DIR__ . '/../../module/Application/src/Entity',
-                ],
-            ],
-            'orm_default' => [
-                'drivers' => [
-                    'Application\\Entity' => 'Doctrine_driver',
-                ],
-            ],
-        ],
-    ],
+
 ];
