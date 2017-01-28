@@ -10,6 +10,8 @@ namespace Application;
 class Module
 {
 
+    //    KONFIGURACJA GLOBALNYCH
+    const VERSION = '3.0.2aaadev';
 
     public function getConfig()
     {

@@ -12,8 +12,6 @@ use Zend\View\Model\ViewModel;
 
 class IndexController extends AbstractActionController
 {
-//    KONFIGURACJA GLOBALNYCH
-    const VERSION = '3.0.2aaadev';
 
     public function indexAction()
     {
