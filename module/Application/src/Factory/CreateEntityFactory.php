@@ -5,16 +5,16 @@
  * Time: 15:30
  */
 
-namespace Application\Interfaces;
+namespace Application\Factory;
 
-use Application\Entity\AL;
 use Application\Entity\Album;
+use Application\Interfaces\AbstractFactoryInterface;
 
 /**
  * Class CreateEntityFactory
  * @package Application\Interfaces
  */
-class CreateEntityFactory implements AbstractFactory
+class CreateEntityFactory implements AbstractFactoryInterface
 {
     /**
      * @return Album|bool

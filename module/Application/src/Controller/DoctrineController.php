@@ -3,7 +3,7 @@
 namespace Application\Controller;
 
 use Application\Entity\Album;
-use Application\Interfaces\CreateEntityFactory;
+use Application\Factory\CreateEntityFactory;
 use Doctrine\ORM\EntityManager;
 use Exception;
 use Zend\Mvc\Controller\AbstractActionController;

@@ -9,10 +9,10 @@ namespace Application\Interfaces;
 
 
 /**
- * Interface AbstractFactory
+ * Interface AbstractFactoryInterface
  * @package Application\Interfaces
  */
-interface AbstractFactory
+interface AbstractFactoryInterface
 {
     /**
      * @param $entityName
