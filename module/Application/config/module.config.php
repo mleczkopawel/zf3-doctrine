@@ -57,7 +57,17 @@ return [
                         'action' => 'index',
                     ]
                 ]
-            ]
+            ],
+            'callback' => [
+                'type' => Segment::class,
+                'options' => [
+                    'route' => '/auth/:provider',
+                    'defaults' => [
+                        'controller' => AuthController::class,
+                        'action' => 'callback',
+                    ],
+                ],
+            ],
         ],
     ],
     'controllers' => [

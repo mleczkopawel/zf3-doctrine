@@ -39,6 +39,12 @@ class User implements MainDbInterface
      */
     private $password;
     /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", nullable=false, length=255)
+     */
+    private $email;
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="date_add", type="datetime", nullable=false)
@@ -206,5 +212,16 @@ class User implements MainDbInterface
     {
         $this->local = $local;
         return $this;
+    }
+
+    public function setProvider($provider) {
+        switch ($provider) {
+            case 'facebook': {
+                $this->setFacebook(1);
+            } break;
+            case 'google': {
+                $this->setGoogle(1);
+            };
+        }
     }
 }

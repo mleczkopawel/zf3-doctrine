@@ -44,6 +44,7 @@ class Module
 
         $whiteList = [
             AuthController::class . '-index',
+            AuthController::class . '-callback',
         ];
 
         $controller = $event->getRouteMatch()->getParam('controller');

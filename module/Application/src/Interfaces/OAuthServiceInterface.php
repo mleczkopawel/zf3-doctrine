@@ -8,10 +8,16 @@
 namespace Application\Interfaces;
 
 
+/**
+ * Interface OAuthServiceInterface
+ * @package Application\Interfaces
+ */
 interface OAuthServiceInterface
 {
+    /**
+     * @param $name
+     * @return mixed
+     */
     public function getProvider($name);
-    public function generateAuthButton();
-    public function oAuthorize();
 
 }

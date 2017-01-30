@@ -41,6 +41,16 @@ class AuthController extends AbstractActionController
     private $_cef;
 
     /**
+     * @var OAuthServiceFactory
+     */
+    private $_oasfF;
+
+    /**
+     * @var OAuthServiceFactory
+     */
+    private $_oasfG;
+
+    /**
      * AuthController constructor.
      * @param AuthenticationService $as
      * @param EntityManager $em
@@ -50,6 +60,8 @@ class AuthController extends AbstractActionController
         $this->_as = $as;
         $this->_em = $em;
         $this->_cef = new CreateEntityFactory();
+        $this->_oasfF = new OAuthServiceFactory();
+        $this->_oasfG = new OAuthServiceFactory();
     }
 
     /**
@@ -57,53 +69,26 @@ class AuthController extends AbstractActionController
      */
     public function indexAction()
     {
-        $facebook = (new OAuthServiceFactory())->create('fb');
-        $google = (new OAuthServiceFactory())->create('google');
+        $this->_oasfF->create('fb');
+        $this->_oasfG->create('google');
 
-        $facebook->getProvider('fb');
-        $google->getProvider('google');
-
-        $urlF = $facebook->generateAuthButton();
-        $urlG = $google->generateAuthButton();
+        $urlF = $this->_oasfF->generateAuthButton();
+        $urlG = $this->_oasfG->generateAuthButton();
 
         $form = new LoginForm();
 
         $request = $this->getRequest();
 
-        if ($request->isPost() || (isset($_GET['code']) && $_GET['code'] != null)) {
-            if (!isset($_GET['code'])) {
-                $data = $request->getPost();
-                $adapter = $this->_as->getAdapter();
-                $adapter->setIdentity($data['name']);
-                $adapter->setCredential($data['password']);
-                $authResult = $adapter->authenticate();
-                $authResult = $authResult->getIdentity();
-                $test = true;
-            } elseif ($auth = $facebook->oAuthorize()) {
-                $user = $this->_em->getRepository(User::class)->findBy(['name' => $auth['user']->getName(), 'facebook' => 1]);
-                if (!$user) {
-                    $user = $this->_cef->create(User::class);
-                    $user->setName($auth['user']->getName());
-                    $user->setFacebook('1');
-                    $user->setPassword('zzaaqqq');
-                    $user->setDateAdd(new \DateTime());
-                    $user->setDateEdit(new \DateTime());
-                    $this->_em->persist($user);
-                    $this->_em->flush();
-                }
-                $authResult = $auth['user'];
-                $test = true;
-            } else {
-                $auth = $google->oAuthorize();
-            }
+        if ($request->isPost()) {
+            $data = $request->getPost();
+            $adapter = $this->_as->getAdapter();
+            $adapter->setIdentity($data['name']);
+            $adapter->setCredential($data['password']);
+            $authResult = $adapter->authenticate();
+            $authResult = $authResult->getIdentity();
 
-            var_dump($auth);die;
 
-            if ($test) {
-                $session = new Container('User');
-                $session->offsetSet('name', $authResult->getName());
-                $this->redirect()->toRoute('application');
-            }
+            $this->setSession($authResult);
         }
 
         return new ViewModel([
@@ -111,5 +96,35 @@ class AuthController extends AbstractActionController
             'urlF' => $urlF,
             'urlG' => $urlG,
         ]);
+    }
+
+    public function callbackAction() {
+        $provider = $this->params()->fromRoute('provider');
+        switch ($provider) {
+            case 'fb': {
+                $auth = $this->_oasfF->oAuthorize();
+                $provider = 'facebook';
+            } break;
+            case 'google': {
+                $auth = $this->_oasfG->oAuthorize();
+            } break;
+        }
+        $user = $this->_em->getRepository(User::class)->findBy(['name' => $auth['user']->getName(), 'email' => $auth['user']->getEmail()]);
+        if (!$user) {
+            $user = $this->_cef->create(User::class);
+        }
+        $user->setName($auth['user']->getName());
+        $user->setPassword('zaqwsx');
+        $user->setDateAdd(new \DateTime());
+        $user->setDateEdit(new \DateTime());
+    }
+
+    /**
+     * @param $authResult
+     */
+    private function setSession($authResult) {
+        $session = new Container('User');
+        $session->offsetSet('name', $authResult->getName());
+        $this->redirect()->toRoute('application');
     }
 }
