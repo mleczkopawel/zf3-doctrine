@@ -7,9 +7,7 @@
 
 namespace ApplicationTest\Controller\Entities;
 
-
 use Application\Entity\Album;
-
 use Application\Entity\User;
 use Application\Factory\CreateEntityFactory;
 use PHPUnit_Framework_TestCase;

@@ -1,34 +1,27 @@
 <?php
 /**
- * User: mlecz
+ * User: Paweł Mleczko
  * Date: 30.01.2017
- * Time: 13:09
+ * Time: 21:29
  */
 
 namespace Application\Service;
 
-use Application\Interfaces\OAuthServiceInterface;
-use Exception;
-use League\OAuth2\Client\Provider\Facebook;
 
-class OAuthService implements OAuthServiceInterface
+use Application\Interfaces\OAuthServiceInterface;
+use League\OAuth2\Client\Provider\Google;
+
+class OAuthServiceGoogle implements OAuthServiceInterface
 {
+
     private $_provider;
 
     public function getProvider($name)
     {
         $config = require ROOT_PATH . '/config/providers.php';
         $config = $config[$name];
-        $clientId = $config['id'];
-        $clientSecret = $config['secret'];
-        $redirectUrl = $config['redirect'];
 
-        $provider = new Facebook([
-            'clientId'          => $clientId,
-            'clientSecret'      => $clientSecret,
-            'redirectUri'       => $redirectUrl,
-            'graphApiVersion'   => 'v2.8',
-        ]);
+        $provider = new Google($config);
 
         $this->_provider = $provider;
     }

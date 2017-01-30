@@ -10,8 +10,8 @@ namespace Application\Controller;
 
 use Application\Entity\User;
 use Application\Factory\CreateEntityFactory;
+use Application\Factory\OAuthServiceFactory;
 use Application\Form\LoginForm;
-use Application\Service\OAuthService;
 use Doctrine\ORM\EntityManager;
 use Zend\Authentication\AuthenticationService;
 use Zend\Mvc\Controller\AbstractActionController;
@@ -35,6 +35,9 @@ class AuthController extends AbstractActionController
      */
     private $_em;
 
+    /**
+     * @var CreateEntityFactory
+     */
     private $_cef;
 
     /**
@@ -54,9 +57,14 @@ class AuthController extends AbstractActionController
      */
     public function indexAction()
     {
-        $oFAuth = new OAuthService();
-        $oFAuth->getProvider('fb');
-        $url = $oFAuth->generateAuthButton();
+        $facebook = (new OAuthServiceFactory())->create('fb');
+        $google = (new OAuthServiceFactory())->create('google');
+
+        $facebook->getProvider('fb');
+        $google->getProvider('google');
+
+        $urlF = $facebook->generateAuthButton();
+        $urlG = $google->generateAuthButton();
 
         $form = new LoginForm();
 
@@ -71,8 +79,7 @@ class AuthController extends AbstractActionController
                 $authResult = $adapter->authenticate();
                 $authResult = $authResult->getIdentity();
                 $test = true;
-            } else {
-                $auth = $oFAuth->oAuthorize();
+            } elseif ($auth = $facebook->oAuthorize()) {
                 $user = $this->_em->getRepository(User::class)->findBy(['name' => $auth['user']->getName(), 'facebook' => 1]);
                 if (!$user) {
                     $user = $this->_cef->create(User::class);
@@ -86,7 +93,12 @@ class AuthController extends AbstractActionController
                 }
                 $authResult = $auth['user'];
                 $test = true;
+            } else {
+                $auth = $google->oAuthorize();
             }
+
+            var_dump($auth);die;
+
             if ($test) {
                 $session = new Container('User');
                 $session->offsetSet('name', $authResult->getName());
@@ -96,7 +108,8 @@ class AuthController extends AbstractActionController
 
         return new ViewModel([
             'form' => $form,
-            'url' => $url,
+            'urlF' => $urlF,
+            'urlG' => $urlG,
         ]);
     }
 }
