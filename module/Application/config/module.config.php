@@ -7,6 +7,10 @@
 
 namespace Application;
 
+use Application\Controller\AuthController;
+use Application\Entity\User;
+use Doctrine\ORM\EntityManager;
+use DoctrineModule\Service\Authentication\AuthenticationServiceFactory;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
@@ -44,12 +48,33 @@ return [
                     ],
                 ],
             ],
+            'auth' => [
+                'type' => Literal::class,
+                'options' => [
+                    'route' => '/auth',
+                    'defaults' => [
+                        'controller' => AuthController::class,
+                        'action' => 'index',
+                    ]
+                ]
+            ]
         ],
     ],
     'controllers' => [
         'factories' => [
             Controller\IndexController::class    => InvokableFactory::class,
-            Controller\DoctrineController::class => Controller\DoctrineControllerFactory::class,
+            Controller\DoctrineController::class => Factory\DoctrineControllerFactory::class,
+            Controller\AuthController::class => Factory\AuthControllerFactory::class
+        ],
+    ],
+    'doctrine' => [
+        'authentication' => [
+            'orm_default' => [
+                'object_manager' => EntityManager::class,
+                'identity_class' => User::class,
+                'identity_property' => 'name',
+                'credential_property' => 'password'
+            ],
         ],
     ],
     'view_manager' => [

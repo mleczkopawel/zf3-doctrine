@@ -4,6 +4,7 @@ namespace Application\Controller;
 
 use Application\Entity\Album;
 use Application\Factory\CreateEntityFactory;
+use Application\Service\OAuthService;
 use Doctrine\ORM\EntityManager;
 use Exception;
 use Zend\Mvc\Controller\AbstractActionController;

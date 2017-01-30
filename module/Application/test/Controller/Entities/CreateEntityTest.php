@@ -10,6 +10,7 @@ namespace ApplicationTest\Controller\Entities;
 
 use Application\Entity\Album;
 
+use Application\Entity\User;
 use Application\Factory\CreateEntityFactory;
 use PHPUnit_Framework_TestCase;
 
@@ -22,7 +23,7 @@ class CreateEntityTest extends PHPUnit_Framework_TestCase
      */
     public function __construct()
     {
-        $this->entities = [Album::class];
+        $this->entities = [Album::class, User::class];
     }
 
 

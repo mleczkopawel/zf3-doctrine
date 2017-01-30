@@ -8,23 +8,28 @@
 namespace Application\Factory;
 
 use Application\Entity\Album;
-use Application\Interfaces\AbstractFactoryInterface;
+use Application\Entity\User;
+use Application\Interfaces\CreateEntityInterface;
 
 /**
  * Class CreateEntityFactory
  * @package Application\Interfaces
  */
-class CreateEntityFactory implements AbstractFactoryInterface
+class CreateEntityFactory implements CreateEntityInterface
 {
     /**
-     * @return Album|bool
+     * @param $entityName
+     * @return Album|User|bool
      */
     public function create($entityName) {
         switch ($entityName) {
             case Album::class: {
                 return new Album();
             } break;
-            default: {
+            case User::class: {
+                return new User();
+            }
+             default: {
                 return false;
             }
         }

@@ -24,7 +24,6 @@ return [
     'Zend\InputFilter',
     'Zend\Filter',
     'Zend\Paginator',
-    'Zend\Hydrator',
     'Zend\Router',
     'Zend\Validator',
     'DoctrineModule',
