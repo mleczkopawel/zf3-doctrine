@@ -60,8 +60,6 @@ class AuthController extends AbstractActionController
         $this->_as = $as;
         $this->_em = $em;
         $this->_cef = new CreateEntityFactory();
-        $this->_oasfF = new OAuthServiceFactory();
-        $this->_oasfG = new OAuthServiceFactory();
     }
 
     /**
@@ -69,11 +67,17 @@ class AuthController extends AbstractActionController
      */
     public function indexAction()
     {
-        $this->_oasfF->create('fb');
-        $this->_oasfG->create('google');
+        $facebook = new OAuthServiceFactory();
+        $google = new OAuthServiceFactory();
 
-        $urlF = $this->_oasfF->generateAuthButton();
-        $urlG = $this->_oasfG->generateAuthButton();
+        $fb = new Container('Facebook');
+        $gp = new Container('Google');
+
+
+        $fb->offsetSet('name', $facebook->create('fb'));
+
+        $urlF = $facebook->generateAuthButton();
+        $urlG = $google->generateAuthButton();
 
         $form = new LoginForm();
 
@@ -98,7 +102,11 @@ class AuthController extends AbstractActionController
         ]);
     }
 
+    /**
+     *
+     */
     public function callbackAction() {
+        var_dump($_SESSION['oasfF']);die;
         $provider = $this->params()->fromRoute('provider');
         switch ($provider) {
             case 'fb': {
@@ -117,6 +125,12 @@ class AuthController extends AbstractActionController
         $user->setPassword('zaqwsx');
         $user->setDateAdd(new \DateTime());
         $user->setDateEdit(new \DateTime());
+        $user->setProvider($provider);
+
+        $this->_em->persist($user);
+        $this->_em->flush();
+
+        $this->setSession($auth['user']);
     }
 
     /**

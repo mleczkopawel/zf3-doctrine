@@ -221,7 +221,10 @@ class User implements MainDbInterface
             } break;
             case 'google': {
                 $this->setGoogle(1);
-            };
+            } break;
+            case 'local': {
+                $this->setLocal(1);
+            } break;
         }
     }
 }

@@ -7,15 +7,25 @@
 
 namespace Application\Factory;
 
-
 use Application\Service\OAuthServiceFacebook;
 use Application\Service\OAuthServiceGoogle;
 
+/**
+ * Class OAuthServiceFactory
+ * @package Application\Factory
+ */
 class OAuthServiceFactory
 {
 
+    /**
+     * @var
+     */
     private $_provider;
 
+    /**
+     * @param $providerName
+     * @return bool|\League\OAuth2\Client\Provider\Facebook|\League\OAuth2\Client\Provider\Google
+     */
     public function create($providerName) {
         switch ($providerName) {
             case 'fb': {
@@ -28,8 +38,12 @@ class OAuthServiceFactory
                 $this->_provider = false;
             }
         }
+        return $this->_provider;
     }
 
+    /**
+     * @return bool
+     */
     public function generateAuthButton()
     {
         if (!isset($_GET['code'])) {
@@ -47,8 +61,12 @@ class OAuthServiceFactory
         return false;
     }
 
+    /**
+     * @return array
+     */
     public function oAuthorize()
     {
+        $this->_provider = $_SERVER['provider'];
         $token = $this->_provider->getAccessToken('authorization_code', [
             'code' => $_GET['code']
         ]);
