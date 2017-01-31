@@ -25,8 +25,6 @@ class RegisterForm extends Form
         parent::__construct($name = 'createUser');
         $this->setAttribute('method', 'post');
 
-        echo $translator->translate('Email Użytkonika', 'default', $locale);die;
-
         $this->add([
             'name' => 'email',
             'type' => 'text',
@@ -73,7 +71,7 @@ class RegisterForm extends Form
             'options' => [
                 'label' => 'Jesteś człowiekiem?',
                 'captcha' => [
-                    'class' => 'Dumb',
+                    'class' => 'Figlet',
                     'wordLen' => 6,
                     'expiration' => 600,
                 ],

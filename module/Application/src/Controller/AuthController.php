@@ -122,7 +122,6 @@ class AuthController extends AbstractActionController
     public function registerAction() {
         $locale = $this->params()->fromRoute('locale');
         $this->_translator->addTranslationFile('gettext', ROOT_PATH . '/module/Application/language/' . $locale . '.mo');
-        $this->_translator->translate('Email Użytkownika', 'default', $locale);
         $form = new RegisterForm($this->_translator, $locale, null);
         $filter = new RegisterFilter();
         $request = $this->getRequest();

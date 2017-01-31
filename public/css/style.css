@@ -31,3 +31,12 @@ div.container a.navbar-brand > img {
     margin-right: 4px;
     margin-top: -2px;
 }
+
+.cap {
+    color: #3a3b3d;
+    background-color: black;
+    border-radius: 100px 100px;
+    text-align: center;
+    /*width: 450px;*/
+    font-size: 8px;
+}
