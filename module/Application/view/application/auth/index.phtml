@@ -5,22 +5,3 @@
  * Time: 14:40
  */
 ?>
-<div class="row">
-    <?php
-    $form->prepare();
-    echo $this->form()->openTag($form);
-    $user = $form->get('name');
-    echo $this->formLabel($user);
-    echo $this->formInput($user);
-    $password = $form->get('password');
-    echo $this->formLabel($password);
-    echo $this->formInput($password);
-    echo $this->formSubmit($form->get('createSubmit'));
-    echo $this->form()->closeTag();
-    ?>
-
-    <br>
-
-    <a class="btn btn-block btn-danger" href="<?php echo $urlF ?>">Login via Facebook</a><br>
-    <a class="btn btn-block btn-danger" href="<?php echo $urlG ?>">Login via Google</a>
-</div>

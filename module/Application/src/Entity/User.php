@@ -29,7 +29,7 @@ class User implements MainDbInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", nullable=false, length=255)
+     * @ORM\Column(name="name", type="string", nullable=true, length=255)
      */
     private $name;
     /**
@@ -75,6 +75,19 @@ class User implements MainDbInterface
      */
     private $local;
 
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="is_active", type="boolean", nullable=false)
+     */
+    private $isActive;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="token", type="string", nullable=false, length=30)
+     */
+    private $token;
     /**
      * @return int
      */
@@ -214,6 +227,63 @@ class User implements MainDbInterface
         return $this;
     }
 
+    /**
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param string $email
+     * @return User
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isIsActive()
+    {
+        return $this->isActive;
+    }
+
+    /**
+     * @param bool $isActive
+     * @return User
+     */
+    public function setIsActive($isActive)
+    {
+        $this->isActive = $isActive;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getToken()
+    {
+        return $this->token;
+    }
+
+    /**
+     * @param string $token
+     * @return User
+     */
+    public function setToken($token)
+    {
+        $this->token = $token;
+        return $this;
+    }
+
+    /**
+     * @param $provider
+     */
     public function setProvider($provider) {
         switch ($provider) {
             case 'facebook': {

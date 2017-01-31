@@ -15,6 +15,9 @@ use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
 
+$uri = $_SERVER['REQUEST_URI'];
+$uri = explode('/', $uri);
+
 return [
     'router' => [
         'routes' => [
@@ -31,40 +34,79 @@ return [
             'application' => [
                 'type'    => Segment::class,
                 'options' => [
-                    'route'    => '/application[/:action]',
+                    'route'    => '[/:locale]/application[/:action]',
                     'defaults' => [
                         'controller' => Controller\IndexController::class,
                         'action'     => 'index',
+                        'locale' => 'fr',
                     ],
                 ],
             ],
             'doctrine' => [
                 'type'    => Segment::class,
                 'options' => [
-                    'route' => '/doctrine[/:action]',
+                    'route' => '[/:locale]/doctrine[/:action]',
                     'defaults' => [
                         'controller' => Controller\DoctrineController::class,
                         'action'     => 'index',
+                        'locale' => 'pl',
                     ],
                 ],
             ],
             'auth' => [
-                'type' => Literal::class,
+                'type' => Segment::class,
                 'options' => [
-                    'route' => '/auth',
+                    'route' => '[/:locale]/auth',
                     'defaults' => [
                         'controller' => AuthController::class,
                         'action' => 'index',
-                    ]
-                ]
-            ],
-            'callback' => [
-                'type' => Segment::class,
-                'options' => [
-                    'route' => '/auth/:provider',
-                    'defaults' => [
-                        'controller' => AuthController::class,
-                        'action' => 'callback',
+                        'locale' => 'pl',
+                    ],
+                ],
+                'may_terminate' => true,
+                'child_routes' => [
+                    'callback' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/callback/:provider',
+                            'defaults' => [
+                                'controller' => AuthController::class,
+                                'action' => 'callback',
+                            ],
+                            'constrains' => array(
+                                'provider' => 'fb,google',
+                            ),
+                        ],
+                    ],
+                    'login' => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/login',
+                            'defaults' => [
+                                'controller' => AuthController::class,
+                                'action' => 'login',
+                            ],
+                        ],
+                    ],
+                    'register' => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/register',
+                            'defaults' => [
+                                'controller' => AuthController::class,
+                                'action' => 'register',
+                            ],
+                        ],
+                    ],
+                    'logout' => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/logout',
+                            'defaults' => [
+                                'controller' => AuthController::class,
+                                'action' => 'logout',
+                            ],
+                        ],
                     ],
                 ],
             ],
@@ -82,8 +124,18 @@ return [
             'orm_default' => [
                 'object_manager' => EntityManager::class,
                 'identity_class' => User::class,
-                'identity_property' => 'name',
+                'identity_property' => 'email',
                 'credential_property' => 'password'
+            ],
+        ],
+    ],
+    'translator' => [
+        'locale' => 'pl_PL',
+        'translation_file_patterns' => [
+            [
+                'type' => 'gettext',
+                'base_dir' => ROOT_PATH . '/module/Application/language',
+                'pattern' => '%s.mo',
             ],
         ],
     ],

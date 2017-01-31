@@ -1,0 +1,30 @@
+<?php
+/**
+ * User: mlecz
+ * Date: 31.01.2017
+ * Time: 15:55
+ */
+?>
+
+<div class="row">
+    <?php
+    $form->prepare();
+    echo $this->form()->openTag($form);
+    $user = $form->get('name');
+    echo $this->formLabel($user);
+    echo $this->formInput($user);
+    $password = $form->get('password');
+    echo $this->formLabel($password);
+    echo $this->formInput($password);
+    echo $this->formSubmit($form->get('createSubmit'));
+    echo $this->form()->closeTag();
+
+    echo $this->translate("Przetłumaczony tekst.", 'default', $locale);
+
+
+    ?>
+
+    <a class="btn btn-block btn-danger" href="<?php echo $urlF ?>">Login via Facebook</a>
+    <a class="btn btn-block btn-danger" href="<?php echo $urlG ?>">Login via Google</a>
+    <a class="btn btn-block btn-danger" href="<?php echo $this->url('auth/register', ['locale' => $locale]) ?>">Zarejestruj</a>
+</div>

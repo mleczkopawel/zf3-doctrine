@@ -1,0 +1,35 @@
+<?php
+/**
+ * User: mlecz
+ * Date: 31.01.2017
+ * Time: 10:52
+ */
+
+?>
+<div class="row">
+    <?php
+    $form->prepare();
+    echo $this->form()->openTag($form);
+    $user = $form->get('email');
+    echo $this->formLabel($user);
+    echo $this->formInput($user);
+    echo $this->formElementErrors($user);
+    $password = $form->get('password');
+    echo $this->formLabel($password);
+    echo $this->formInput($password);
+    echo $this->formElementErrors($password);
+    $sPassword = $form->get('spassword');
+    echo $this->formLabel($sPassword);
+    echo $this->formInput($sPassword);
+    echo $this->formElementErrors($sPassword);
+    $capt = $form->get('capt');
+    echo $this->formLabel($capt);
+    echo $this->formElement($capt);
+    echo $this->formElementErrors($capt);
+    echo $this->formSubmit($form->get('createSubmit'));
+    echo $this->form()->closeTag();
+    ?>
+
+<br>
+
+</div>

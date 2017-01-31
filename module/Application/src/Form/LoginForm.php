@@ -13,13 +13,13 @@ class LoginForm extends Form
 {
     public function __construct($name = null)
     {
-        parent::__construct($name = 'createUser');
+        parent::__construct($name = 'loginUser');
         $this->setAttribute('method', 'post');
         $this->add(array(
             'name' => 'name',
             'type' => 'text',
             'options' => array(
-                'label' => 'Nazwa Użytkonika',
+                'label' => 'Email Użytkonika',
             ),
             'attributes' => array(
                 'class' => 'form-control',
@@ -30,7 +30,7 @@ class LoginForm extends Form
             'name' => 'password',
             'type' => 'password',
             'options' => array(
-                'label' => 'Hasło admina',
+                'label' => 'Hasło',
             ),
             'attributes' => array(
                 'class' => 'form-control',
