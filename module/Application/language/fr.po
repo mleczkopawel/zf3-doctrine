@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ZendSkeletonApplication\n"
-"POT-Creation-Date: 2017-01-31 16:08+0100\n"
-"PO-Revision-Date: 2017-01-31 16:08+0100\n"
+"POT-Creation-Date: 2017-01-31 23:00+0100\n"
+"PO-Revision-Date: 2017-01-31 23:01+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -16,10 +16,18 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: ..\n"
 
+#: ../src/Controller/AuthController.php:125
+msgid "Email Użytkownika"
+msgstr "Email de l’utilisateur"
+
+#: ../src/Form/RegisterForm.php:28 ../src/Form/RegisterForm.php:34
+msgid "Email Użytkonika"
+msgstr "Utilisateur de courriel"
+
 #: ../view/application/auth/login.phtml:22
 msgid "Przetłumaczony tekst."
 msgstr "Le texte traduit."
 
-#: ../view/layout/layout.phtml:7
+#: ../view/layout/layout.phtml:20
 msgid "Sklep"
 msgstr "Entreprise"

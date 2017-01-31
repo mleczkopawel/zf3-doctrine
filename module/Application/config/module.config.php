@@ -15,9 +15,6 @@ use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
 
-$uri = $_SERVER['REQUEST_URI'];
-$uri = explode('/', $uri);
-
 return [
     'router' => [
         'routes' => [
@@ -38,7 +35,7 @@ return [
                     'defaults' => [
                         'controller' => Controller\IndexController::class,
                         'action'     => 'index',
-                        'locale' => 'fr',
+                        'locale' => 'pl',
                     ],
                 ],
             ],
@@ -127,6 +124,16 @@ return [
                 'identity_property' => 'email',
                 'credential_property' => 'password'
             ],
+        ],
+    ],
+    'service_manager' => [
+        'factories' => [
+            \Zend\I18n\Translator\TranslatorInterface::class => \Zend\I18n\Translator\TranslatorServiceFactory::class,
+        ]
+    ],
+    'controller_plugins' => [
+        'invokables' => [
+            'translate' => \Zend\I18n\View\Helper\Translate::class
         ],
     ],
     'translator' => [

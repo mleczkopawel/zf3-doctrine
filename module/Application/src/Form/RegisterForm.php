@@ -17,17 +17,21 @@ class RegisterForm extends Form
 {
     /**
      * RegisterForm constructor.
+     * @param int|null|string $translator
      * @param null $name
      */
-    public function __construct($name = null)
+    public function __construct($translator, $locale, $name = null)
     {
         parent::__construct($name = 'createUser');
         $this->setAttribute('method', 'post');
+
+        echo $translator->translate('Email Użytkonika', 'default', $locale);die;
+
         $this->add([
             'name' => 'email',
             'type' => 'text',
             'options' => [
-                'label' => 'Email Użytkonika',
+                'label' => $translator->translate('Email Użytkonika', 'default', $locale),
             ],
             'attributes' => [
                 'placeholder' => 'Email Użytkonika',
@@ -35,6 +39,7 @@ class RegisterForm extends Form
                 'required' => true,
             ],
         ]);
+
         $this->add([
             'name' => 'password',
             'type' => 'password',
@@ -47,6 +52,7 @@ class RegisterForm extends Form
                 'required' => true,
             ],
         ]);
+
         $this->add([
             'name' => 'spassword',
             'type' => 'password',
@@ -59,16 +65,7 @@ class RegisterForm extends Form
                 'required' => true,
             ],
         ]);
-        $this->add([
-            'name' => 'day',
-            'type' => 'text',
-            'options' => [],
-            'attributes' => [
-                'placeholder' => 'dd',
-                'class' => 'form-control',
-                'required' => true,
-            ],
-        ]);
+
 
         $this->add([
             'type' => 'captcha',
@@ -76,7 +73,7 @@ class RegisterForm extends Form
             'options' => [
                 'label' => 'Jesteś człowiekiem?',
                 'captcha' => [
-                    'class' => 'Figlet',
+                    'class' => 'Dumb',
                     'wordLen' => 6,
                     'expiration' => 600,
                 ],

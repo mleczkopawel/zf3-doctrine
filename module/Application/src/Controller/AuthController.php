@@ -18,6 +18,9 @@ use Application\Functions\UserPassword;
 use Doctrine\ORM\EntityManager;
 use Zend\Authentication\AuthenticationService;
 use Zend\Captcha\ReCaptcha;
+use Zend\I18n\Translator\LoaderPluginManager;
+use Zend\I18n\Translator\Translator;
+use Zend\I18n\View\Helper\Translate;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Session\Container;
 use Zend\View\Model\ViewModel;
@@ -54,6 +57,8 @@ class AuthController extends AbstractActionController
      */
     private $_oasfG;
 
+    private $_translator;
+
     /**
      * AuthController constructor.
      * @param AuthenticationService $as
@@ -64,6 +69,7 @@ class AuthController extends AbstractActionController
         $this->_as = $as;
         $this->_em = $em;
         $this->_cef = new CreateEntityFactory();
+        $this->_translator = new Translator();
     }
 
     /**
@@ -114,8 +120,10 @@ class AuthController extends AbstractActionController
      * @return ViewModel
      */
     public function registerAction() {
-//        $locale = $this->params()->fromRoute('locale');
-        $form = new RegisterForm();
+        $locale = $this->params()->fromRoute('locale');
+        $this->_translator->addTranslationFile('gettext', ROOT_PATH . '/module/Application/language/' . $locale . '.mo');
+        $this->_translator->translate('Email Użytkownika', 'default', $locale);
+        $form = new RegisterForm($this->_translator, $locale, null);
         $filter = new RegisterFilter();
         $request = $this->getRequest();
 
@@ -151,7 +159,7 @@ class AuthController extends AbstractActionController
 
         return new ViewModel([
             'form' => $form,
-//            'locale' => $locale,
+            'locale' => $locale,
         ]);
     }
 
