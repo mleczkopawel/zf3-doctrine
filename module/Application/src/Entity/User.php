@@ -77,6 +77,12 @@ class User implements MainDbInterface
     private $dateLastLogin;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_last_login", type="datetime", nullable=true)
+     */
+    private $dateLastLogin;
+    /**
      * @var int
      *
      * @ORM\Column(name="google", type="integer", nullable=true)
