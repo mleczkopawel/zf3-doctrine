@@ -37,6 +37,12 @@ div.container a.navbar-brand > img {
     background-color: black;
     border-radius: 100px 100px;
     text-align: center;
-    /*width: 450px;*/
+    width: 350px;
     font-size: 8px;
+}
+
+@media (max-width: 600px) {
+    .cap {
+        width: 100%;
+    }
 }

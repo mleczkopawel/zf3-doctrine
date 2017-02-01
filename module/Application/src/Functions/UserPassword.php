@@ -7,7 +7,6 @@
 
 namespace Application\Functions;
 
-
 /**
  * Class UserPassword
  * @package Application\Functions

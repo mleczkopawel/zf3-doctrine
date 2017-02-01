@@ -15,7 +15,7 @@ use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
 
-$locale = 'pl';
+$locale = 'en';
 
 return [
     'router' => [

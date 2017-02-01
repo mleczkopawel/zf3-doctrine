@@ -9,8 +9,16 @@ namespace Application\Form;
 
 use Zend\Form\Form;
 
+/**
+ * Class LoginForm
+ * @package Application\Form
+ */
 class LoginForm extends Form
 {
+    /**
+     * LoginForm constructor.
+     * @param null $name
+     */
     public function __construct($name = null)
     {
         parent::__construct($name = 'loginUser');

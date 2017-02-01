@@ -57,6 +57,9 @@ class AuthController extends AbstractActionController
      */
     private $_oasfG;
 
+    /**
+     * @var Translator
+     */
     private $_translator;
 
     /**
@@ -81,6 +84,9 @@ class AuthController extends AbstractActionController
         $this->redirect()->toRoute('auth/login', ['locale' => $locale]);
     }
 
+    /**
+     * @return ViewModel
+     */
     public function loginAction() {
         $locale = $this->params()->fromRoute('locale');
         $this->_oasfF = (new OAuthServiceFactory())->create('fb');

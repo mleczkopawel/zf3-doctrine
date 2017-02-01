@@ -12,17 +12,30 @@ use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
 use Zend\Session\Container;
 
+/**
+ * Class Module
+ * @package Application
+ */
 class Module
 {
 
     //    KONFIGURACJA GLOBALNYCH
+    /**
+     *
+     */
     const VERSION = '3.0.2aaaasdasdasdasddev';
 
+    /**
+     * @return mixed
+     */
     public function getConfig()
     {
         return include __DIR__ . '/../config/module.config.php';
     }
 
+    /**
+     * @param MvcEvent $event
+     */
     public function onBootstrap(MvcEvent $event) {
         $eventManager = $event->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
@@ -39,6 +52,9 @@ class Module
         ], -100);
     }
 
+    /**
+     * @param MvcEvent $event
+     */
     public function beforeDispatch(MvcEvent $event) {
         $response = $event->getResponse();
 
@@ -66,5 +82,8 @@ class Module
 
     }
 
+    /**
+     * @param MvcEvent $event
+     */
     public function afterDispatch(MvcEvent $event) {}
 }

@@ -7,7 +7,6 @@
 
 namespace Application\Functions;
 
-
 /**
  * Class TokenGenerator
  * @package Application\Functions
