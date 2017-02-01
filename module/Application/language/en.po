@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ZendSkeletonApplication\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-31 22:55+0100\n"
-"PO-Revision-Date: 2017-01-31 22:55+0100\n"
+"POT-Creation-Date: 2017-02-01 10:49+0100\n"
+"PO-Revision-Date: 2017-02-01 10:50+0100\n"
 "Last-Translator: Łukasz Rodziewicz <lukasz@rodziewicz.com.pl>\n"
 "Language-Team: ZF Contibutors <zf-devteam@zend.com>\n"
 "Language: en\n"
@@ -17,18 +17,133 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../src/Controller/AuthController.php:126
-msgid "Email Użytkownika"
-msgstr "User Email"
+#: ../src/Filter/RegisterFilter.php:99
+msgid "Wprowadź minimum %min% znaków."
+msgstr "Insert min %min% chars."
 
-#: ../src/Form/RegisterForm.php:28 ../src/Form/RegisterForm.php:34
-msgid "Email Użytkonika"
-msgstr "Email User"
+#: ../src/Filter/RegisterFilter.php:100
+msgid "Wprowadź maximum %max% znaków."
+msgstr "Insert max %max% chars."
+
+#: ../src/Filter/RegisterFilter.php:101 ../src/Filter/RegisterFilter.php:127
+#: ../src/Filter/RegisterFilter.php:136
+msgid "Nieprawidłowy typ, oczekiwałem ciągu znaków."
+msgstr "Incorrect type, expected string."
+
+#: ../src/Filter/RegisterFilter.php:128
+msgid "Nieprawidłowy adres email, użyj NAZWA@NAZWA_HOSTA."
+msgstr "Invalid email address, use NAME@HOSTNAME."
+
+#: ../src/Filter/RegisterFilter.php:129
+msgid "%hostname% nie jest właściwą nazwą hosta dla adresu email."
+msgstr "%hostname% is not correct hostname for email address."
+
+#: ../src/Filter/RegisterFilter.php:130
+msgid "%hostname% wydaje się nie mieć ważnego MX lub adresu email."
+msgstr ""
+
+#: ../src/Filter/RegisterFilter.php:131
+msgid "%hostname% wydaje się nie routowalny, nie może być rozwiązany w sieci."
+msgstr ""
+
+#: ../src/Filter/RegisterFilter.php:132
+msgid "%localPart% nie może być powiązany z niczym kropką."
+msgstr ""
+
+#: ../src/Filter/RegisterFilter.php:133
+msgid "%localPart% nie może być w apostrofach."
+msgstr ""
+
+#: ../src/Filter/RegisterFilter.php:134
+msgid "%localPart% nieprawidłowa część lokalna adresu email."
+msgstr ""
+
+#: ../src/Filter/RegisterFilter.php:135
+msgid "Nieprawidłowy punnycode."
+msgstr ""
+
+#: ../src/Filter/RegisterFilter.php:137
+msgid ""
+"Nazwa hosta wydaje się być prawdłowa, lecz slash jest w nieprawidłowej "
+"pozycji."
+msgstr ""
+
+#: ../src/Filter/RegisterFilter.php:138
+msgid "Nieprawidłowy adres hosta, nie można odnaleźć danego hosta."
+msgstr ""
+
+#: ../src/Filter/RegisterFilter.php:139
+msgid "Nie poprawny schemat TLD %tld%."
+msgstr ""
+
+#: ../src/Filter/RegisterFilter.php:140
+msgid ""
+"Wpisany lokalny adres sieci, lokalne adresy sieciowe nie są akceptowane."
+msgstr ""
+
+#: ../src/Filter/RegisterFilter.php:141
+msgid "Niepoprawny adres URI."
+msgstr ""
+
+#: ../src/Filter/RegisterFilter.php:142
+msgid "Nie potrafię rozpoznać adresu."
+msgstr ""
+
+#: ../src/Filter/RegisterFilter.php:189
+msgid "Wpisane hasła nie są identyczne."
+msgstr ""
+
+#: ../src/Filter/RegisterFilter.php:190
+msgid "Hasło nie zostało wpisane."
+msgstr ""
+
+#: ../src/Form/LoginForm.php:35 ../src/Form/LoginForm.php:38
+#: ../src/Form/RegisterForm.php:36 ../src/Form/RegisterForm.php:39
+msgid "Email użytkonika"
+msgstr "User email"
+
+#: ../src/Form/LoginForm.php:47 ../src/Form/LoginForm.php:50
+#: ../src/Form/RegisterForm.php:49 ../src/Form/RegisterForm.php:52
+msgid "Hasło"
+msgstr "Password"
+
+#: ../src/Form/LoginForm.php:59
+msgid "Zaloguj"
+msgstr "Sign in"
+
+#: ../src/Form/RegisterForm.php:62 ../src/Form/RegisterForm.php:66
+msgid "Powtórz hasło"
+msgstr "Repeat password"
+
+#: ../src/Form/RegisterForm.php:76
+msgid "Potwierdź czy jesteś człowiekiem, wpisując teskt z obrazka."
+msgstr ""
+
+#: ../src/Form/RegisterForm.php:82
+msgid "Niepoprawny tekst, wpisz jeszcze raz."
+msgstr ""
+
+#: ../src/Form/RegisterForm.php:88
+msgid "Tekst z obrazka"
+msgstr ""
+
+#: ../src/Form/RegisterForm.php:97
+msgid "Zarejestruj"
+msgstr "Sign up"
 
 #: ../view/application/auth/login.phtml:22
 msgid "Przetłumaczony tekst."
 msgstr "The translated text."
 
-#: ../view/layout/layout.phtml:20
+#: ../view/layout/layout.phtml:19
 msgid "Sklep"
 msgstr "Shop"
+
+#~ msgid "Wprowadź minimum 8 znaków!"
+#~ msgstr "Please input at least 8 chars!"
+
+#~ msgid "Email Użytkonika"
+#~ msgstr "Email User"
+
+#~ msgid "Email Użytkownika"
+#~ msgstr "User Email"

@@ -19,12 +19,12 @@
     echo $this->formSubmit($form->get('createSubmit'));
     echo $this->form()->closeTag();
 
-    echo $this->translate("Przetłumaczony tekst.", 'default', $locale);
+    echo $this->translate("Przetłumaczony tekst.", 'default', LOCALE);
 
 
     ?>
 
     <a class="btn btn-block btn-danger" href="<?php echo $urlF ?>">Login via Facebook</a>
     <a class="btn btn-block btn-danger" href="<?php echo $urlG ?>">Login via Google</a>
-    <a class="btn btn-block btn-danger" href="<?php echo $this->url('auth/register', ['locale' => $locale]) ?>">Zarejestruj</a>
+    <a class="btn btn-block btn-danger" href="<?php echo $this->url('auth/register', ['locale' => LOCALE]) ?>">Zarejestruj</a>
 </div>

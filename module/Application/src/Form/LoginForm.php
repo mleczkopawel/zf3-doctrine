@@ -7,6 +7,9 @@
 
 namespace Application\Form;
 
+use Zend\Form\Element\Password;
+use Zend\Form\Element\Submit;
+use Zend\Form\Element\Text;
 use Zend\Form\Form;
 
 /**
@@ -17,39 +20,42 @@ class LoginForm extends Form
 {
     /**
      * LoginForm constructor.
+     * @param int|null|string $translator
      * @param null $name
      */
-    public function __construct($name = null)
+    public function __construct($translator, $name = null)
     {
         parent::__construct($name = 'loginUser');
         $this->setAttribute('method', 'post');
         $this->add(array(
             'name' => 'name',
-            'type' => 'text',
+            'type' => Text::class,
             'options' => array(
-                'label' => 'Email Użytkonika',
+                'label' => $translator->translate('Email użytkonika', 'default', LOCALE),
             ),
             'attributes' => array(
+                'placeholder' => $translator->translate('Email użytkonika', 'default', LOCALE),
                 'class' => 'form-control',
                 'required' => true,
             ),
         ));
         $this->add(array(
             'name' => 'password',
-            'type' => 'password',
+            'type' => Password::class,
             'options' => array(
-                'label' => 'Hasło',
+                'label' => $translator->translate('Hasło', 'default', LOCALE),
             ),
             'attributes' => array(
+                'placeholder' => $translator->translate('Hasło', 'default', LOCALE),
                 'class' => 'form-control',
                 'required' => true,
             ),
         ));
         $this->add(array(
             'name' => 'createSubmit',
-            'type' => 'submit',
+            'type' => Submit::class,
             'attributes' => array(
-                'value' => 'Zaloguj',
+                'value' => $translator->translate('Zaloguj', 'default', LOCALE),
                 'class' => 'btn btn-primary btn-block',
                 'style' => 'margin-top: 2%',
             )

@@ -7,6 +7,9 @@
 
 namespace Application\Form;
 
+use Zend\Form\Element\Password;
+use Zend\Form\Element\Submit;
+use Zend\Form\Element\Text;
 use Zend\Form\Form;
 
 /**
@@ -20,19 +23,19 @@ class RegisterForm extends Form
      * @param int|null|string $translator
      * @param null $name
      */
-    public function __construct($translator, $locale, $name = null)
+    public function __construct($translator, $name = null)
     {
         parent::__construct($name = 'createUser');
         $this->setAttribute('method', 'post');
 
         $this->add([
             'name' => 'email',
-            'type' => 'text',
+            'type' => Text::class,
             'options' => [
-                'label' => $translator->translate('Email Użytkonika', 'default', $locale),
+                'label' => $translator->translate('Email użytkonika', 'default', LOCALE),
             ],
             'attributes' => [
-                'placeholder' => 'Email Użytkonika',
+                'placeholder' => $translator->translate('Email użytkonika', 'default', LOCALE),
                 'class' => 'form-control',
                 'required' => true,
             ],
@@ -40,12 +43,12 @@ class RegisterForm extends Form
 
         $this->add([
             'name' => 'password',
-            'type' => 'password',
+            'type' => Password::class,
             'options' => [
-                'label' => 'Hasło',
+                'label' => $translator->translate('Hasło', 'default', LOCALE),
             ],
             'attributes' => [
-                'placeholder' => 'Hasło',
+                'placeholder' => $translator->translate('Hasło', 'default', LOCALE),
                 'class' => 'form-control',
                 'required' => true,
             ],
@@ -53,13 +56,13 @@ class RegisterForm extends Form
 
         $this->add([
             'name' => 'spassword',
-            'type' => 'password',
+            'type' => Password::class,
             'options' => [
-                'label' => 'Powtórz Hasło',
+                'label' => $translator->translate('Powtórz hasło', 'default', LOCALE),
             ],
             'attributes' => [
                 'class' => 'form-control',
-                'placeholder' => 'Powtórz Hasło',
+                'placeholder' => $translator->translate('Powtórz hasło', 'default', LOCALE),
                 'required' => true,
             ],
         ]);
@@ -69,24 +72,28 @@ class RegisterForm extends Form
             'type' => 'captcha',
             'name' => 'capt',
             'options' => [
-                'label' => 'Jesteś człowiekiem?',
+                'label' => $translator->translate('Potwierdź czy jesteś człowiekiem, wpisując teskt z obrazka.', 'default', LOCALE),
                 'captcha' => [
                     'class' => 'Figlet',
                     'wordLen' => 6,
                     'expiration' => 600,
+                    'messages' => [
+                        'badCaptcha' => $translator->translate('Niepoprawny tekst, wpisz jeszcze raz.', 'default', LOCALE),
+                    ],
                 ],
             ],
             'attributes' => [
                 'class' => 'form-control',
+                'placeholder' => $translator->translate('Tekst z obrazka', 'default', LOCALE),
                 'required' => true,
             ]
         ]);
 
         $this->add([
             'name' => 'createSubmit',
-            'type' => 'submit',
+            'type' => Submit::class,
             'attributes' => [
-                'value' => 'Zarejestruj',
+                'value' => $translator->translate('Zarejestruj', 'default', LOCALE),
                 'class' => 'btn btn-primary btn-block',
                 'style' => 'margin-top: 2%',
             ]

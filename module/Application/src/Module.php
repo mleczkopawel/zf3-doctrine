@@ -61,6 +61,7 @@ class Module
         $whiteList = [
             AuthController::class . '-index',
             AuthController::class . '-login',
+            AuthController::class . '-logout',
             AuthController::class . '-callback',
             AuthController::class . '-register',
         ];

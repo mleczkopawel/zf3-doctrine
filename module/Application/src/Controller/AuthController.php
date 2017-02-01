@@ -75,27 +75,27 @@ class AuthController extends AbstractActionController
         $this->_translator = new Translator();
     }
 
+
     /**
-     * @return ViewModel
+     *
      */
     public function indexAction()
     {
-        $locale = $this->params()->fromRoute('locale');
-        $this->redirect()->toRoute('auth/login', ['locale' => $locale]);
+        $this->redirect()->toRoute('auth/login', ['locale' => LOCALE]);
     }
 
     /**
      * @return ViewModel
      */
     public function loginAction() {
-        $locale = $this->params()->fromRoute('locale');
+        $this->_translator->addTranslationFile('gettext', ROOT_PATH . '/module/Application/language/' . LOCALE . '.mo');
         $this->_oasfF = (new OAuthServiceFactory())->create('fb');
         $this->_oasfG = (new OAuthServiceFactory())->create('google');
 
         $urlF = $this->_oasfF->generateAuthButton();
         $urlG = $this->_oasfG->generateAuthButton();
 
-        $form = new LoginForm();
+        $form = new LoginForm($this->_translator, null);
 
         $request = $this->getRequest();
         if ($request->isPost()) {
@@ -110,7 +110,7 @@ class AuthController extends AbstractActionController
             if ($authResult->isIsActive()) {
                 $this->setSession($authResult);
             } else {
-                $this->redirect()->toRoute('application');
+                $this->redirect()->toRoute('application', ['locale' => LOCALE]);
             }
         }
 
@@ -118,7 +118,6 @@ class AuthController extends AbstractActionController
             'form' => $form,
             'urlF' => $urlF,
             'urlG' => $urlG,
-            'locale' => $locale,
         ]);
     }
 
@@ -126,10 +125,10 @@ class AuthController extends AbstractActionController
      * @return ViewModel
      */
     public function registerAction() {
-        $locale = $this->params()->fromRoute('locale');
-        $this->_translator->addTranslationFile('gettext', ROOT_PATH . '/module/Application/language/' . $locale . '.mo');
-        $form = new RegisterForm($this->_translator, $locale, null);
+        $this->_translator->addTranslationFile('gettext', ROOT_PATH . '/module/Application/language/' . LOCALE . '.mo');
+        $form = new RegisterForm($this->_translator,  null);
         $filter = new RegisterFilter();
+        $filter->setTranslator($this->_translator);
         $request = $this->getRequest();
 
         $form->setInputFilter($filter->getInputFilter());
@@ -154,7 +153,7 @@ class AuthController extends AbstractActionController
                     $this->_em->persist($user);
                     $this->_em->flush();
 
-                    $this->redirect()->toRoute('application');
+                    $this->redirect()->toRoute('application', ['locale' => LOCALE]);
                 } else {
                     var_dump('Istnieje!!!');die;
                 }
@@ -164,7 +163,6 @@ class AuthController extends AbstractActionController
 
         return new ViewModel([
             'form' => $form,
-            'locale' => $locale,
         ]);
     }
 
@@ -213,7 +211,7 @@ class AuthController extends AbstractActionController
     private function setSession($authResult) {
         $session = new Container('User');
         $session->offsetSet('name', $authResult->getName());
-        $this->redirect()->toRoute('application');
+        $this->redirect()->toRoute('application', ['locale' => LOCALE]);
     }
 
     /**
@@ -224,6 +222,6 @@ class AuthController extends AbstractActionController
 
         $session = new Container('User');
         $session->getManager()->getStorage()->clear('User');
-        return $this->redirect()->toRoute('application');
+        $this->redirect()->toRoute('auth/login', ['locale' => LOCALE]);
     }
 }

@@ -3,6 +3,7 @@
 use Zend\Mvc\Application;
 use Zend\Stdlib\ArrayUtils;
 
+
 /**
  * This makes our life easier when dealing with paths. Everything is relative
  * to the application root now.
@@ -21,6 +22,22 @@ if (php_sapi_name() === 'cli-server') {
 // Define application environment
 defined('APPLICATION_ENV') || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
 define('ROOT_PATH', dirname(__DIR__));
+
+$languages = require ROOT_PATH . '/config/languages.php';
+
+$locale = 'pl';
+
+$uri = $_SERVER['REQUEST_URI'];
+$uri = explode('/', $uri);
+foreach ($uri as $item) {
+    foreach ($languages as $language) {
+        if ($item == $language && !isset($_COOKIE['Locale'])) {
+            $locale = $language;
+        }
+    }
+}
+define('LOCALE', $locale);
+setcookie('Locale', $locale, time()+3600, 'https://zf3d.pl');
 
 // Composer autoloading
 include __DIR__ . '/../vendor/autoload.php';

@@ -3,21 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="google-site-verification" content="uTfxaomdf6Ox6QPPJvsyuUFQzmVSJPi629AVkTMMSJU" />
-    <?php
-        $locales = ['pl', 'en', 'fr'];
-
-        $uri = $_SERVER['REQUEST_URI'];
-        $uri = explode('/', $uri);
-
-        if (in_array($uri, $locales)) {
-        var_dump($uri);
-
-        }
-
-
-    ?>
-    <title><?php echo $this->translate("Sklep", 'default', $uri[1]); ?></title>
+    <title><?php echo $this->translate("Sklep", 'default', LOCALE); ?></title>
 
     <?= $this->headMeta()
         ->appendName('viewport', 'width=device-width, initial-scale=1.0')

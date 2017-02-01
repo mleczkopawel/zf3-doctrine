@@ -15,8 +15,6 @@ use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
 
-$locale = 'en';
-
 return [
     'router' => [
         'routes' => [
@@ -37,7 +35,7 @@ return [
                     'defaults' => [
                         'controller' => Controller\IndexController::class,
                         'action'     => 'index',
-                        'locale' => $locale,
+                        'locale' => LOCALE,
                     ],
                 ],
             ],
@@ -48,7 +46,7 @@ return [
                     'defaults' => [
                         'controller' => Controller\DoctrineController::class,
                         'action'     => 'index',
-                        'locale' => $locale,
+                        'locale' => LOCALE,
                     ],
                 ],
             ],
@@ -59,7 +57,7 @@ return [
                     'defaults' => [
                         'controller' => AuthController::class,
                         'action' => 'index',
-                        'locale' => $locale,
+                        'locale' => LOCALE,
                     ],
                 ],
                 'may_terminate' => true,
@@ -139,7 +137,7 @@ return [
         ],
     ],
     'translator' => [
-        'locale' => 'pl_PL',
+        'locale' => LOCALE,
         'translation_file_patterns' => [
             [
                 'type' => 'gettext',
