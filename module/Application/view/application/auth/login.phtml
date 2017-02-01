@@ -18,13 +18,9 @@
     echo $this->formInput($password);
     echo $this->formSubmit($form->get('createSubmit'));
     echo $this->form()->closeTag();
-
-    echo $this->translate("Przetłumaczony tekst.", 'default', LOCALE);
-
-
     ?>
 
-    <a class="btn btn-block btn-danger" href="<?php echo $urlF ?>">Login via Facebook</a>
-    <a class="btn btn-block btn-danger" href="<?php echo $urlG ?>">Login via Google</a>
-    <a class="btn btn-block btn-danger" href="<?php echo $this->url('auth/register', ['locale' => LOCALE]) ?>">Zarejestruj</a>
+    <a class="btn btn-block btn-social btn-facebook" href="<?php echo $urlF ?>"><span class="fa fa-facebook"></span><?php echo $this->translate("Zaloguj przez Facebook", 'default', LOCALE); ?></a>
+    <a class="btn btn-block btn-social btn-google" href="<?php echo $urlG ?>"><span class="fa fa-google"></span><?php echo $this->translate("Zaloguj przez Google+", 'default', LOCALE); ?></a>
+    <a class="btn btn-block btn-danger" href="<?php echo $this->url('auth/register', ['locale' => LOCALE]) ?>"><?php echo $this->translate("Zarejestruj", 'default', LOCALE); ?></a>
 </div>

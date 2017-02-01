@@ -15,6 +15,7 @@ use Application\Form\LoginForm;
 use Application\Form\RegisterForm;
 use Application\Functions\TokenGenerator;
 use Application\Functions\UserPassword;
+use Application\Service\MailService;
 use Doctrine\ORM\EntityManager;
 use Zend\Authentication\AuthenticationService;
 use Zend\Captcha\ReCaptcha;
@@ -48,16 +49,6 @@ class AuthController extends AbstractActionController
     private $_cef;
 
     /**
-     * @var OAuthServiceFactory
-     */
-    private $_oasfF;
-
-    /**
-     * @var OAuthServiceFactory
-     */
-    private $_oasfG;
-
-    /**
      * @var Translator
      */
     private $_translator;
@@ -89,11 +80,11 @@ class AuthController extends AbstractActionController
      */
     public function loginAction() {
         $this->_translator->addTranslationFile('gettext', ROOT_PATH . '/module/Application/language/' . LOCALE . '.mo');
-        $this->_oasfF = (new OAuthServiceFactory())->create('fb');
-        $this->_oasfG = (new OAuthServiceFactory())->create('google');
+        $facebook = (new OAuthServiceFactory())->create('fb');
+        $google = (new OAuthServiceFactory())->create('google');
 
-        $urlF = $this->_oasfF->generateAuthButton();
-        $urlG = $this->_oasfG->generateAuthButton();
+        $urlF = $facebook->generateAuthButton();
+        $urlG = $google->generateAuthButton();
 
         $form = new LoginForm($this->_translator, null);
 
@@ -137,26 +128,31 @@ class AuthController extends AbstractActionController
             $data = $request->getPost();
             $form->setData($data);
             if ($form->isValid()) {
-                $user = $this->_em->getRepository(User::class)->findBy(['email' => $data['email']]);
+                $user = $this->_em->getRepository(User::class)->findOneBy(['email' => $data['email']]);
                 if (!$user) {
-                    $password = (new UserPassword())->create($data['password']);
-                    $token = (new TokenGenerator())->string(30);
                     $user = $this->_cef->create(User::class);
-                    $user->setEmail($data['email']);
-                    $user->setPassword($password);
-                    $user->setDateAdd(new \DateTime());
-                    $user->setDateEdit(new \DateTime());
-                    $user->setProvider('local');
-                    $user->setIsActive(0);
-                    $user->setToken($token);
+                } elseif ($user->getGoogle() || $user->getFacebook()) {
 
-                    $this->_em->persist($user);
-                    $this->_em->flush();
-
-                    $this->redirect()->toRoute('application', ['locale' => LOCALE]);
                 } else {
+//                    TODO: zrobić reset hasła hasła
                     var_dump('Istnieje!!!');die;
                 }
+                $password = (new UserPassword())->create($data['password']);
+                $token = (new TokenGenerator())->string(30);
+                $user->setEmail($data['email']);
+                $user->setPassword($password);
+                $user->setDateAdd(new \DateTime());
+                $user->setProvider('local');
+                $user->setIsActive(0);
+                $user->setToken($token);
+
+                $this->_em->persist($user);
+                $this->_em->flush();
+
+                $mailService = new MailService();
+//                var_dump($mailService->send());die;
+
+                $this->redirect()->toRoute('application', ['locale' => LOCALE]);
             }
         }
 
@@ -173,16 +169,16 @@ class AuthController extends AbstractActionController
         $provider = $this->params()->fromRoute('provider');
         switch ($provider) {
             case 'fb': {
-                $this->_oasfF = (new OAuthServiceFactory())->create('fb');
-                $auth = $this->_oasfF->oAuthorize();
+                $facebook = (new OAuthServiceFactory())->create('fb');
+                $auth = $facebook->oAuthorize();
                 $provider = 'facebook';
             } break;
             case 'google': {
-                $this->_oasfG = (new OAuthServiceFactory())->create('google');
-                $auth = $this->_oasfG->oAuthorize();
+                $google = (new OAuthServiceFactory())->create('google');
+                $auth = $google->oAuthorize();
             } break;
         }
-        $user = $this->_em->getRepository(User::class)->findBy(['email' => $auth['user']->getEmail()]);
+        $user = $this->_em->getRepository(User::class)->findOneBy(['email' => $auth['user']->getEmail()]);
         if (!$user) {
             $password = (new UserPassword())->create(date('d.m.Y H:i:s'));
             $token = (new TokenGenerator())->string(30);
@@ -191,12 +187,9 @@ class AuthController extends AbstractActionController
             $user->setDateAdd(new \DateTime());
             $user->setEmail($auth['user']->getEmail());
             $user->setToken($token);
-        } else {
-            $user = $user[0];
         }
         $user->setName($auth['user']->getName());
         $user->setIsActive(true);
-        $user->setDateEdit(new \DateTime());
         $user->setProvider($provider);
 
         $this->_em->persist($user);
@@ -209,19 +202,37 @@ class AuthController extends AbstractActionController
      * @param $authResult
      */
     private function setSession($authResult) {
+        $user = $this->_em->getRepository(User::class)->findOneBy(['email' => $authResult->getEmail()]);
+        $user->setDateLastLogin(new \DateTime());
+        $this->_em->persist($user);
+        $this->_em->flush();
         $session = new Container('User');
         $session->offsetSet('name', $authResult->getName());
         $this->redirect()->toRoute('application', ['locale' => LOCALE]);
     }
 
     /**
-     * @return \Zend\Http\Response
+     *
      */
     public function logoutAction() {
         $this->_as->clearIdentity();
 
         $session = new Container('User');
         $session->getManager()->getStorage()->clear('User');
+        $this->redirect()->toRoute('auth/login', ['locale' => LOCALE]);
+    }
+
+    /**
+     *
+     */
+    public function checkAction() {
+        $id = $this->params()->fromRoute('id');
+        $token = $this->params()->fromRoute('token');
+        $user = $this->_em->getRepository(User::class)->findOneBy(['id' => $id, 'token' => $token]);
+        $user->setIsActive(1);
+
+        $this->_em->persist($user);
+        $this->_em->flush();
         $this->redirect()->toRoute('auth/login', ['locale' => LOCALE]);
     }
 }

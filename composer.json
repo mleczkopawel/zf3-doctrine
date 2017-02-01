@@ -29,7 +29,8 @@
         "league/oauth2-facebook": "^2.0",
         "zendframework/zend-authentication": "^2.5",
         "league/oauth2-google": "^2.0",
-        "zendframework/zend-captcha": "^2.6"
+        "zendframework/zend-captcha": "^2.6",
+        "zendframework/zend-mail": "^2.7"
     },
     "autoload": {
         "psr-4": {

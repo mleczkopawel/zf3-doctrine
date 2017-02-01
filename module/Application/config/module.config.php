@@ -70,9 +70,6 @@ return [
                                 'controller' => AuthController::class,
                                 'action' => 'callback',
                             ],
-                            'constrains' => array(
-                                'provider' => 'fb,google',
-                            ),
                         ],
                     ],
                     'login' => [
@@ -102,6 +99,16 @@ return [
                             'defaults' => [
                                 'controller' => AuthController::class,
                                 'action' => 'logout',
+                            ],
+                        ],
+                    ],
+                    'check' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/check/:token/:id',
+                            'defaults' => [
+                                'controller' => AuthController::class,
+                                'action' => 'check',
                             ],
                         ],
                     ],

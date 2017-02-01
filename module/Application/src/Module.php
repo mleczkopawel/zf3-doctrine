@@ -64,6 +64,7 @@ class Module
             AuthController::class . '-logout',
             AuthController::class . '-callback',
             AuthController::class . '-register',
+            AuthController::class . '-check',
         ];
 
         $controller = $event->getRouteMatch()->getParam('controller');

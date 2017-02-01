@@ -53,9 +53,15 @@ class User implements MainDbInterface
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date_edit", type="datetime", nullable=false)
+     * @ORM\Column(name="date_edit", type="datetime", nullable=true)
      */
     private $dateEdit;
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_last_login", type="datetime", nullable=true)
+     */
+    private $dateLastLogin;
     /**
      * @var int
      *
@@ -278,6 +284,24 @@ class User implements MainDbInterface
     public function setToken($token)
     {
         $this->token = $token;
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDateLastLogin()
+    {
+        return $this->dateLastLogin;
+    }
+
+    /**
+     * @param \DateTime $dateLastLogin
+     * @return User
+     */
+    public function setDateLastLogin($dateLastLogin)
+    {
+        $this->dateLastLogin = $dateLastLogin;
         return $this;
     }
 
