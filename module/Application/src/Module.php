@@ -64,6 +64,7 @@ class Module
             AuthController::class . '-logout',
             AuthController::class . '-callback',
             AuthController::class . '-register',
+            AuthController::class . '-check',
         ];
 
         $controller = $event->getRouteMatch()->getParam('controller');
@@ -71,6 +72,8 @@ class Module
         $requestedResource = $controller . '-' . $action;
 
         $session = new Container('User');
+
+//        var_dump($session->offsetGet('name'));die;
 
         if (!$session->offsetExists('name')) {
             if ($requestedResource != AuthController::class . '-index' && !in_array($requestedResource, $whiteList)) {

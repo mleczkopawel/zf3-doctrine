@@ -111,7 +111,7 @@ class RegisterFilter implements InputFilterAwareInterface
                                 EmailAddress::INVALID_LOCAL_PART => $this->_translator->translate('%localPart% nieprawidłowa część lokalna adresu email.', 'default', LOCALE),
                                 Hostname::CANNOT_DECODE_PUNYCODE => $this->_translator->translate('Nieprawidłowy punnycode.', 'default', LOCALE),
                                 Hostname::INVALID => $this->_translator->translate('Nieprawidłowy typ, oczekiwałem ciągu znaków.', 'default', LOCALE),
-                                Hostname::INVALID_DASH => $this->_translator->translate('Nazwa hosta wydaje się być prawdłowa, lecz slash jest w nieprawidłowej pozycji.', 'default', LOCALE),
+                                Hostname::INVALID_DASH => $this->_translator->translate('Nazwa hosta wydaje się być prawidłowa, lecz slash jest w nieprawidłowej pozycji.', 'default', LOCALE),
                                 Hostname::INVALID_HOSTNAME => $this->_translator->translate('Nieprawidłowy adres hosta, nie można odnaleźć danego hosta.', 'default', LOCALE),
                                 Hostname::INVALID_HOSTNAME_SCHEMA => $this->_translator->translate('Nie poprawny schemat TLD %tld%.', 'default', LOCALE),
                                 Hostname::INVALID_LOCAL_NAME => $this->_translator->translate('Wpisany lokalny adres sieci, lokalne adresy sieciowe nie są akceptowane.', 'default', LOCALE),

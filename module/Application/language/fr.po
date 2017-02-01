@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ZendSkeletonApplication\n"
-"POT-Creation-Date: 2017-01-31 23:00+0100\n"
-"PO-Revision-Date: 2017-01-31 23:01+0100\n"
+"POT-Creation-Date: 2017-02-05 23:08+0100\n"
+"PO-Revision-Date: 2017-02-05 23:08+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -16,18 +16,171 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../src/Controller/AuthController.php:125
-msgid "Email Użytkownika"
+#: ../src/Controller/AuthController.php:102
+msgid "Zalogowano jako "
+msgstr "Vous êtes connecté en tant que"
+
+#: ../src/Filter/RegisterFilter.php:76
+msgid "Wprowadź minimum %min% znaków."
+msgstr "Saisissez les caractères de %min% minimum ."
+
+#: ../src/Filter/RegisterFilter.php:77
+msgid "Wprowadź maximum %max% znaków."
+msgstr "Saisissez les caractères de %max% au maximum."
+
+#: ../src/Filter/RegisterFilter.php:78 ../src/Filter/RegisterFilter.php:104
+#: ../src/Filter/RegisterFilter.php:113
+msgid "Nieprawidłowy typ, oczekiwałem ciągu znaków."
+msgstr "Type non valide, je m’attendais une chaîne."
+
+#: ../src/Filter/RegisterFilter.php:105
+msgid "Nieprawidłowy adres email, użyj NAZWA@NAZWA_HOSTA."
+msgstr "Invalid email adresse, utilisez le nom@nom d’hôte."
+
+#: ../src/Filter/RegisterFilter.php:106
+msgid "%hostname% nie jest właściwą nazwą hosta dla adresu email."
+msgstr "%hostname% n’est pas le nom d’hôte correct de l’adresse e-mail."
+
+#: ../src/Filter/RegisterFilter.php:107
+msgid "%hostname% wydaje się nie mieć ważnego MX lub adresu email."
+msgstr "%hostname% semble n’avoir aucune adresse valide de MX ou par courriel."
+
+#: ../src/Filter/RegisterFilter.php:108
+msgid "%hostname% wydaje się nie routowalny, nie może być rozwiązany w sieci."
+msgstr ""
+"%hostname% ne semble pas être routable, ne peut pas être résolu sur le "
+"réseau."
+
+#: ../src/Filter/RegisterFilter.php:109
+msgid "%localPart% nie może być powiązany z niczym kropką."
+msgstr "%localPart% ne peut être associé à n’importe quoi."
+
+#: ../src/Filter/RegisterFilter.php:110
+msgid "%localPart% nie może być w apostrofach."
+msgstr "%localPart% ne peut pas être entre guillemets simples."
+
+#: ../src/Filter/RegisterFilter.php:111
+msgid "%localPart% nieprawidłowa część lokalna adresu email."
+msgstr ""
+"partie %localPart% non valide de l’adresse de courrier électronique local."
+
+#: ../src/Filter/RegisterFilter.php:112
+msgid "Nieprawidłowy punnycode."
+msgstr "Punnycode non valide."
+
+#: ../src/Filter/RegisterFilter.php:114
+msgid ""
+"Nazwa hosta wydaje się być prawidłowa, lecz slash jest w nieprawidłowej "
+"pozycji."
+msgstr ""
+"Le nom d’hôte semble être correct, mais la barre oblique est dans la "
+"position incorrecte."
+
+#: ../src/Filter/RegisterFilter.php:115
+msgid "Nieprawidłowy adres hosta, nie można odnaleźć danego hosta."
+msgstr "Adresse de l’hôte non valide, pas pu trouver l’hôte."
+
+#: ../src/Filter/RegisterFilter.php:116
+msgid "Nie poprawny schemat TLD %tld%."
+msgstr "Pas un valide TLD schéma %tld%."
+
+#: ../src/Filter/RegisterFilter.php:117
+msgid ""
+"Wpisany lokalny adres sieci, lokalne adresy sieciowe nie są akceptowane."
+msgstr ""
+"Tapé l’adresse du réseau local, réseau local, les adresses ne sont pas "
+"acceptés."
+
+#: ../src/Filter/RegisterFilter.php:118
+msgid "Niepoprawny adres URI."
+msgstr "Une adresse erronée URI."
+
+#: ../src/Filter/RegisterFilter.php:119
+msgid "Nie potrafię rozpoznać adresu."
+msgstr "Je ne sais pas répondre."
+
+#: ../src/Filter/RegisterFilter.php:166
+msgid "Wpisane hasła nie są identyczne."
+msgstr "Les deux mot de passe ne sont pas identiques."
+
+#: ../src/Filter/RegisterFilter.php:167
+msgid "Hasło nie zostało wpisane."
+msgstr "Mot de passe n’est pas entré."
+
+#: ../src/Form/LoginForm.php:34 ../src/Form/LoginForm.php:37
+#: ../src/Form/RegisterForm.php:35 ../src/Form/RegisterForm.php:38
+#: ../view/application/auth/register.phtml:30
+msgid "Email użytkownika"
 msgstr "Email de l’utilisateur"
 
-#: ../src/Form/RegisterForm.php:28 ../src/Form/RegisterForm.php:34
-msgid "Email Użytkonika"
-msgstr "Utilisateur de courriel"
+#: ../src/Form/LoginForm.php:46 ../src/Form/LoginForm.php:49
+#: ../src/Form/RegisterForm.php:48 ../src/Form/RegisterForm.php:51
+#: ../view/application/auth/register.phtml:31
+msgid "Hasło"
+msgstr "Mot de passe"
 
-#: ../view/application/auth/login.phtml:22
-msgid "Przetłumaczony tekst."
-msgstr "Le texte traduit."
+#: ../src/Form/LoginForm.php:58
+msgid "Zaloguj"
+msgstr "S'identifier"
 
-#: ../view/layout/layout.phtml:20
+#: ../src/Form/RegisterForm.php:61 ../src/Form/RegisterForm.php:65
+#: ../view/application/auth/register.phtml:32
+msgid "Powtórz hasło"
+msgstr "Répéter mot de passe"
+
+#: ../src/Form/RegisterForm.php:75 ../view/application/auth/register.phtml:33
+msgid "Potwierdź czy jesteś człowiekiem, wpisując teskt z obrazka."
+msgstr ""
+"Confirmer si vous êtes un être humain en saisissant le texte de l’image."
+
+#: ../src/Form/RegisterForm.php:81
+msgid "Niepoprawny tekst, wpisz jeszcze raz."
+msgstr "Texte incorrect, type nouveau."
+
+#: ../src/Form/RegisterForm.php:87
+msgid "Tekst z obrazka"
+msgstr "Le texte de l’image"
+
+#: ../src/Form/RegisterForm.php:96 ../view/application/auth/login.phtml:25
+msgid "Zarejestruj"
+msgstr "Enregistrer"
+
+#: ../src/Service/MailService.php:19
+msgid "Zarejestrowany użytkownik"
+msgstr "Utilisateur enregistré"
+
+#: ../src/Service/MailService.php:19
+msgid "kliknij link aby potwierdzić"
+msgstr "Cliquez sur le lien pour confirmer"
+
+#: ../src/Service/MailService.php:22
+msgid "Witamy"
+msgstr "Welcome"
+
+#: ../view/application/auth/login.phtml:23
+msgid "Zaloguj przez Facebook"
+msgstr "Connectez-vous avec Facebook"
+
+#: ../view/application/auth/login.phtml:24
+msgid "Zaloguj przez Google+"
+msgstr "Télécharger notre application Android sur Google play."
+
+#: ../view/application/index/index.phtml:18
+msgid "Sukces"
+msgstr "Success"
+
+#: ../view/layout/layout.phtml:6
 msgid "Sklep"
 msgstr "Entreprise"
+
+#~ msgid "Email użytkonika"
+#~ msgstr "Utilisateur de courriel"
+
+#~ msgid "Email Użytkownika"
+#~ msgstr "Email de l’utilisateur"
+
+#~ msgid "Email Użytkonika"
+#~ msgstr "Utilisateur de courriel"
+
+#~ msgid "Przetłumaczony tekst."
+#~ msgstr "Le texte traduit."

@@ -37,7 +37,6 @@ foreach ($uri as $item) {
     }
 }
 define('LOCALE', $locale);
-setcookie('Locale', $locale, time()+3600, 'https://zf3d.pl');
 
 // Composer autoloading
 include __DIR__ . '/../vendor/autoload.php';

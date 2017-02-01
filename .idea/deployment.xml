@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" uploadOnCheckin="8b3aa4cb-9bfe-4bf9-9069-29f13e0e5665">
+  <component name="PublishConfigData">
     <serverData>
       <paths name="SONY">
         <serverdata>
@@ -24,6 +24,5 @@
         </serverdata>
       </paths>
     </serverData>
-    <option name="myUploadOnCheckinName" value="ZF3d" />
   </component>
 </project>

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ZendSkeletonApplication\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-01 10:49+0100\n"
-"PO-Revision-Date: 2017-02-01 10:50+0100\n"
+"POT-Creation-Date: 2017-02-05 23:08+0100\n"
+"PO-Revision-Date: 2017-02-05 23:08+0100\n"
 "Last-Translator: Łukasz Rodziewicz <lukasz@rodziewicz.com.pl>\n"
 "Language-Team: ZF Contibutors <zf-devteam@zend.com>\n"
 "Language: en\n"
@@ -17,127 +17,161 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../src/Filter/RegisterFilter.php:99
+#: ../src/Controller/AuthController.php:102
+msgid "Zalogowano jako "
+msgstr "You are logged in as "
+
+#: ../src/Filter/RegisterFilter.php:76
 msgid "Wprowadź minimum %min% znaków."
 msgstr "Insert min %min% chars."
 
-#: ../src/Filter/RegisterFilter.php:100
+#: ../src/Filter/RegisterFilter.php:77
 msgid "Wprowadź maximum %max% znaków."
 msgstr "Insert max %max% chars."
 
-#: ../src/Filter/RegisterFilter.php:101 ../src/Filter/RegisterFilter.php:127
-#: ../src/Filter/RegisterFilter.php:136
+#: ../src/Filter/RegisterFilter.php:78 ../src/Filter/RegisterFilter.php:104
+#: ../src/Filter/RegisterFilter.php:113
 msgid "Nieprawidłowy typ, oczekiwałem ciągu znaków."
 msgstr "Incorrect type, expected string."
 
-#: ../src/Filter/RegisterFilter.php:128
+#: ../src/Filter/RegisterFilter.php:105
 msgid "Nieprawidłowy adres email, użyj NAZWA@NAZWA_HOSTA."
 msgstr "Invalid email address, use NAME@HOSTNAME."
 
-#: ../src/Filter/RegisterFilter.php:129
+#: ../src/Filter/RegisterFilter.php:106
 msgid "%hostname% nie jest właściwą nazwą hosta dla adresu email."
 msgstr "%hostname% is not correct hostname for email address."
 
-#: ../src/Filter/RegisterFilter.php:130
+#: ../src/Filter/RegisterFilter.php:107
 msgid "%hostname% wydaje się nie mieć ważnego MX lub adresu email."
-msgstr ""
+msgstr "%hostname% does not seem to have a valid MX or email address."
 
-#: ../src/Filter/RegisterFilter.php:131
+#: ../src/Filter/RegisterFilter.php:108
 msgid "%hostname% wydaje się nie routowalny, nie może być rozwiązany w sieci."
-msgstr ""
+msgstr "%hostname% seems not routable, could not be resolved on the network."
 
-#: ../src/Filter/RegisterFilter.php:132
+#: ../src/Filter/RegisterFilter.php:109
 msgid "%localPart% nie może być powiązany z niczym kropką."
-msgstr ""
+msgstr "%localPart% cannot be associated with anything."
 
-#: ../src/Filter/RegisterFilter.php:133
+#: ../src/Filter/RegisterFilter.php:110
 msgid "%localPart% nie może być w apostrofach."
-msgstr ""
+msgstr "%localPart% cannot be in quotes."
 
-#: ../src/Filter/RegisterFilter.php:134
+#: ../src/Filter/RegisterFilter.php:111
 msgid "%localPart% nieprawidłowa część lokalna adresu email."
-msgstr ""
+msgstr "%localPart% invalid part of the local email address."
 
-#: ../src/Filter/RegisterFilter.php:135
+#: ../src/Filter/RegisterFilter.php:112
 msgid "Nieprawidłowy punnycode."
-msgstr ""
+msgstr "Invalid punnycode."
 
-#: ../src/Filter/RegisterFilter.php:137
+#: ../src/Filter/RegisterFilter.php:114
 msgid ""
-"Nazwa hosta wydaje się być prawdłowa, lecz slash jest w nieprawidłowej "
+"Nazwa hosta wydaje się być prawidłowa, lecz slash jest w nieprawidłowej "
 "pozycji."
 msgstr ""
+"The host name appears to be correct, but the slash is in the wrong position."
 
-#: ../src/Filter/RegisterFilter.php:138
+#: ../src/Filter/RegisterFilter.php:115
 msgid "Nieprawidłowy adres hosta, nie można odnaleźć danego hosta."
-msgstr ""
+msgstr "Invalid host address, could not find the host."
 
-#: ../src/Filter/RegisterFilter.php:139
+#: ../src/Filter/RegisterFilter.php:116
 msgid "Nie poprawny schemat TLD %tld%."
-msgstr ""
+msgstr "Not a valid TLD schema %tld%."
 
-#: ../src/Filter/RegisterFilter.php:140
+#: ../src/Filter/RegisterFilter.php:117
 msgid ""
 "Wpisany lokalny adres sieci, lokalne adresy sieciowe nie są akceptowane."
-msgstr ""
+msgstr "Typed local network address, local network addresses are not accepted."
 
-#: ../src/Filter/RegisterFilter.php:141
+#: ../src/Filter/RegisterFilter.php:118
 msgid "Niepoprawny adres URI."
-msgstr ""
+msgstr "The email address is not valid."
 
-#: ../src/Filter/RegisterFilter.php:142
+#: ../src/Filter/RegisterFilter.php:119
 msgid "Nie potrafię rozpoznać adresu."
-msgstr ""
+msgstr "Address could not be resolved."
 
-#: ../src/Filter/RegisterFilter.php:189
+#: ../src/Filter/RegisterFilter.php:166
 msgid "Wpisane hasła nie są identyczne."
-msgstr ""
+msgstr "The passwords are not identical."
 
-#: ../src/Filter/RegisterFilter.php:190
+#: ../src/Filter/RegisterFilter.php:167
 msgid "Hasło nie zostało wpisane."
-msgstr ""
+msgstr "Password was not entered."
 
-#: ../src/Form/LoginForm.php:35 ../src/Form/LoginForm.php:38
-#: ../src/Form/RegisterForm.php:36 ../src/Form/RegisterForm.php:39
-msgid "Email użytkonika"
-msgstr "User email"
+#: ../src/Form/LoginForm.php:34 ../src/Form/LoginForm.php:37
+#: ../src/Form/RegisterForm.php:35 ../src/Form/RegisterForm.php:38
+#: ../view/application/auth/register.phtml:30
+msgid "Email użytkownika"
+msgstr "User's email"
 
-#: ../src/Form/LoginForm.php:47 ../src/Form/LoginForm.php:50
-#: ../src/Form/RegisterForm.php:49 ../src/Form/RegisterForm.php:52
+#: ../src/Form/LoginForm.php:46 ../src/Form/LoginForm.php:49
+#: ../src/Form/RegisterForm.php:48 ../src/Form/RegisterForm.php:51
+#: ../view/application/auth/register.phtml:31
 msgid "Hasło"
 msgstr "Password"
 
-#: ../src/Form/LoginForm.php:59
+#: ../src/Form/LoginForm.php:58
 msgid "Zaloguj"
 msgstr "Sign in"
 
-#: ../src/Form/RegisterForm.php:62 ../src/Form/RegisterForm.php:66
+#: ../src/Form/RegisterForm.php:61 ../src/Form/RegisterForm.php:65
+#: ../view/application/auth/register.phtml:32
 msgid "Powtórz hasło"
 msgstr "Repeat password"
 
-#: ../src/Form/RegisterForm.php:76
+#: ../src/Form/RegisterForm.php:75 ../view/application/auth/register.phtml:33
 msgid "Potwierdź czy jesteś człowiekiem, wpisując teskt z obrazka."
-msgstr ""
+msgstr "We need to verify you're a human."
 
-#: ../src/Form/RegisterForm.php:82
+#: ../src/Form/RegisterForm.php:81
 msgid "Niepoprawny tekst, wpisz jeszcze raz."
-msgstr ""
+msgstr "Incorrect text, type again."
 
-#: ../src/Form/RegisterForm.php:88
+#: ../src/Form/RegisterForm.php:87
 msgid "Tekst z obrazka"
-msgstr ""
+msgstr "Enter Captcha"
 
-#: ../src/Form/RegisterForm.php:97
+#: ../src/Form/RegisterForm.php:96 ../view/application/auth/login.phtml:25
 msgid "Zarejestruj"
 msgstr "Sign up"
 
-#: ../view/application/auth/login.phtml:22
-msgid "Przetłumaczony tekst."
-msgstr "The translated text."
+#: ../src/Service/MailService.php:19
+msgid "Zarejestrowany użytkownik"
+msgstr "New member registered"
 
-#: ../view/layout/layout.phtml:19
+#: ../src/Service/MailService.php:19
+msgid "kliknij link aby potwierdzić"
+msgstr "Click the link to confirm"
+
+#: ../src/Service/MailService.php:22
+msgid "Witamy"
+msgstr "Welcome"
+
+#: ../view/application/auth/login.phtml:23
+msgid "Zaloguj przez Facebook"
+msgstr "Login with Facebook"
+
+#: ../view/application/auth/login.phtml:24
+msgid "Zaloguj przez Google+"
+msgstr "Login with Google+"
+
+#: ../view/application/index/index.phtml:18
+msgid "Sukces"
+msgstr "Success"
+
+#: ../view/layout/layout.phtml:6
 msgid "Sklep"
 msgstr "Shop"
+
+#~ msgid "Email użytkonika"
+#~ msgstr "User email"
+
+#~ msgid "Przetłumaczony tekst."
+#~ msgstr "The translated text."
 
 #~ msgid "Wprowadź minimum 8 znaków!"
 #~ msgstr "Please input at least 8 chars!"

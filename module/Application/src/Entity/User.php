@@ -26,48 +26,70 @@ class User implements MainDbInterface
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="is_admin", type="boolean", nullable=false)
+     */
+    private $isAdmin = 0;
+
     /**
      * @var string
      *
      * @ORM\Column(name="name", type="string", nullable=true, length=255)
      */
     private $name;
+
     /**
      * @var string
      *
      * @ORM\Column(name="password", type="string", nullable=false, length=255)
      */
     private $password;
+
     /**
      * @var string
      *
      * @ORM\Column(name="email", type="string", nullable=false, length=255)
      */
     private $email;
+
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="date_add", type="datetime", nullable=false)
      */
     private $dateAdd;
+
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date_edit", type="datetime", nullable=false)
+     * @ORM\Column(name="date_edit", type="datetime", nullable=true)
      */
     private $dateEdit;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_last_login", type="datetime", nullable=true)
+     */
+    private $dateLastLogin;
+
     /**
      * @var int
      *
      * @ORM\Column(name="google", type="integer", nullable=true)
      */
     private $google;
+
     /**
      * @var int
      *
      * @ORM\Column(name="facebook", type="integer", nullable=true)
      */
     private $facebook;
+
     /**
      * @var int
      *
@@ -88,6 +110,13 @@ class User implements MainDbInterface
      * @ORM\Column(name="token", type="string", nullable=false, length=30)
      */
     private $token;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Application\Entity\File")
+     * @ORM\JoinColumn(name="avatar_id", referencedColumnName="id")
+     */
+    private $avatarId;
+
     /**
      * @return int
      */
@@ -109,7 +138,11 @@ class User implements MainDbInterface
      */
     public function getName()
     {
-        return $this->name;
+        if ($this->name == null) {
+            return $this->email;
+        } else {
+            return $this->name;
+        }
     }
     /**
      * @param string $name
@@ -282,6 +315,24 @@ class User implements MainDbInterface
     }
 
     /**
+     * @return \DateTime
+     */
+    public function getDateLastLogin()
+    {
+        return $this->dateLastLogin;
+    }
+
+    /**
+     * @param \DateTime $dateLastLogin
+     * @return User
+     */
+    public function setDateLastLogin($dateLastLogin)
+    {
+        $this->dateLastLogin = $dateLastLogin;
+        return $this;
+    }
+
+    /**
      * @param $provider
      */
     public function setProvider($provider) {
@@ -297,4 +348,42 @@ class User implements MainDbInterface
             } break;
         }
     }
+
+    /**
+     * @return bool
+     */
+    public function isIsAdmin()
+    {
+        return $this->isAdmin;
+    }
+
+    /**
+     * @param bool $isAdmin
+     * @return User
+     */
+    public function setIsAdmin($isAdmin)
+    {
+        $this->isAdmin = $isAdmin;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAvatarId()
+    {
+        return $this->avatarId;
+    }
+
+    /**
+     * @param mixed $avatarId
+     * @return User
+     */
+    public function setAvatarId($avatarId)
+    {
+        $this->avatarId = $avatarId;
+        return $this;
+    }
+
+
 }

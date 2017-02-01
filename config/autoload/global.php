@@ -11,6 +11,36 @@
  * file.
  */
 
-return [
+use Doctrine\DBAL\Driver\PDOMySql\Driver;
+use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 
+return [
+    'doctrine' => [
+        'connection' => [
+            'orm_default' => [
+                'driverClass' => Driver::class,
+                'params' => [
+                    'host' => 'sql.mleczkop.nazwa.pl',
+                    'port' => '3306',
+                    'user' => 'mleczkop_1',
+                    'password' => 'Titanum!9',
+                    'dbname' => 'mleczkop_1',
+                ],
+            ],
+        ],
+        'driver' => [
+            'Doctrine_driver' => [
+                'class' => AnnotationDriver::class,
+                'cache' => 'array',
+                'paths' => [
+                    __DIR__ . '/../../module/Application/src/Entity',
+                ],
+            ],
+            'orm_default' => [
+                'drivers' => [
+                    'Application\\Entity' => 'Doctrine_driver',
+                ],
+            ],
+        ],
+    ],
 ];

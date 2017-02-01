@@ -31,10 +31,10 @@ class LoginForm extends Form
             'name' => 'name',
             'type' => Text::class,
             'options' => array(
-                'label' => $translator->translate('Email użytkonika', 'default', LOCALE),
+                'label' => $translator->translate('Email użytkownika', 'default', LOCALE),
             ),
             'attributes' => array(
-                'placeholder' => $translator->translate('Email użytkonika', 'default', LOCALE),
+                'placeholder' => $translator->translate('Email użytkownika', 'default', LOCALE),
                 'class' => 'form-control',
                 'required' => true,
             ),

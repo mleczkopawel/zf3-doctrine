@@ -32,10 +32,10 @@ class RegisterForm extends Form
             'name' => 'email',
             'type' => Text::class,
             'options' => [
-                'label' => $translator->translate('Email użytkonika', 'default', LOCALE),
+                'label' => $translator->translate('Email użytkownika', 'default', LOCALE),
             ],
             'attributes' => [
-                'placeholder' => $translator->translate('Email użytkonika', 'default', LOCALE),
+                'placeholder' => $translator->translate('Email użytkownika', 'default', LOCALE),
                 'class' => 'form-control',
                 'required' => true,
             ],
