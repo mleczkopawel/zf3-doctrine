@@ -1,24 +1,3 @@
 <a href="<?php echo $this->url('auth/logout', ['locale' => LOCALE]); ?>">Wyloguj</a>
 <h1 style="text-align: center">Wracamy do nauki :*</h1>
-<script>
-    var messages = [];
-    i = 0;
-</script>
-<?php if ($messages): ?>
-    <?php foreach ($messages as $message): ?>
-        <script>
-            messages[i++] = '<?= $message ?>';
-        </script>
-    <?php endforeach; ?>
-<?php endif; ?>
-<script>
-    for (var j = 0; j < messages.length; j++) {
-        $.toaster({
-            priority: 'success',
-            title: '<?= $this->translate('Sukces', 'default', LOCALE); ?>',
-            message: messages[j]
-        });
-    }
-</script>
-
 

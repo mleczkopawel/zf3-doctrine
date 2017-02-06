@@ -10,7 +10,9 @@ namespace Application;
 use Application\Controller\AuthController;
 use Application\Entity\User;
 use Doctrine\ORM\EntityManager;
-use DoctrineModule\Service\Authentication\AuthenticationServiceFactory;
+use Zend\I18n\Translator\TranslatorInterface;
+use Zend\I18n\Translator\TranslatorServiceFactory;
+use Zend\I18n\View\Helper\Translate;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
@@ -21,31 +23,31 @@ return [
             'home' => [
                 'type' => Literal::class,
                 'options' => [
-                    'route'    => '/',
+                    'route' => '/',
                     'defaults' => [
                         'controller' => Controller\IndexController::class,
-                        'action'     => 'index',
+                        'action' => 'index',
                     ],
                 ],
             ],
             'application' => [
-                'type'    => Segment::class,
+                'type' => Segment::class,
                 'options' => [
-                    'route'    => '[/:locale]/application[/:action]',
+                    'route' => '[/:locale]/application[/:action]',
                     'defaults' => [
                         'controller' => Controller\IndexController::class,
-                        'action'     => 'index',
+                        'action' => 'index',
                         'locale' => LOCALE,
                     ],
                 ],
             ],
             'doctrine' => [
-                'type'    => Segment::class,
+                'type' => Segment::class,
                 'options' => [
                     'route' => '[/:locale]/doctrine[/:action]',
                     'defaults' => [
                         'controller' => Controller\DoctrineController::class,
-                        'action'     => 'index',
+                        'action' => 'index',
                         'locale' => LOCALE,
                     ],
                 ],
@@ -112,13 +114,23 @@ return [
                             ],
                         ],
                     ],
+                    'reset' => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/reset',
+                            'defaults' => [
+                                'controller' => AuthController::class,
+                                'action' => 'resetPassword',
+                            ],
+                        ],
+                    ],
                 ],
             ],
         ],
     ],
     'controllers' => [
         'factories' => [
-            Controller\IndexController::class    => InvokableFactory::class,
+            Controller\IndexController::class => InvokableFactory::class,
             Controller\DoctrineController::class => Factory\DoctrineControllerFactory::class,
             Controller\AuthController::class => Factory\AuthControllerFactory::class
         ],
@@ -135,12 +147,12 @@ return [
     ],
     'service_manager' => [
         'factories' => [
-            \Zend\I18n\Translator\TranslatorInterface::class => \Zend\I18n\Translator\TranslatorServiceFactory::class,
+            TranslatorInterface::class => TranslatorServiceFactory::class,
         ]
     ],
     'controller_plugins' => [
         'invokables' => [
-            'translate' => \Zend\I18n\View\Helper\Translate::class
+            'translate' => Translate::class
         ],
     ],
     'translator' => [
@@ -155,15 +167,15 @@ return [
     ],
     'view_manager' => [
         'display_not_found_reason' => true,
-        'display_exceptions'       => true,
-        'doctype'                  => 'HTML5',
-        'not_found_template'       => 'error/404',
-        'exception_template'       => 'error/index',
+        'display_exceptions' => true,
+        'doctype' => 'HTML5',
+        'not_found_template' => 'error/404',
+        'exception_template' => 'error/index',
         'template_map' => [
-            'layout/layout'           => __DIR__ . '/../view/layout/layout.phtml',
+            'layout/layout' => __DIR__ . '/../view/layout/layout.phtml',
             'application/index/index' => __DIR__ . '/../view/application/index/index.phtml',
-            'error/404'               => __DIR__ . '/../view/error/404.phtml',
-            'error/index'             => __DIR__ . '/../view/error/index.phtml',
+            'error/404' => __DIR__ . '/../view/error/404.phtml',
+            'error/index' => __DIR__ . '/../view/error/index.phtml',
         ],
         'template_path_stack' => [
             __DIR__ . '/../view',

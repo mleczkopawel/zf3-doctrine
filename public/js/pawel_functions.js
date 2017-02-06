@@ -16,10 +16,9 @@ function pushToastMessageForm(messageLate) {
         }
     }
 
-    console.log(messages);
     for (var i = 0; i < messages.length; i++) {
         $.toaster({
-            priority: 'danger',
+            priority: 'warning',
             title: messages[i][1],
             message: messages[i][0]
         });

@@ -21,16 +21,19 @@ class OAuthServiceFactory
      * @param $providerName
      * @return OAuthServiceFacebook|OAuthServiceGoogle|bool
      */
-    public function create($providerName) {
+    public function create($providerName)
+    {
         switch ($providerName) {
             case 'fb': {
                 $provider = new OAuthServiceFacebook();
                 $provider->getProvider($providerName);
-            } break;
+            }
+                break;
             case 'google': {
                 $provider = new OAuthServiceGoogle();
                 $provider->getProvider($providerName);
-            } break;
+            }
+                break;
         }
 
         if (isset($provider)) {

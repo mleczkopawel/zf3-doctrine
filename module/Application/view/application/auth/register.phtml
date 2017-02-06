@@ -27,35 +27,15 @@
     ?>
 </div>
 <?php
-    echo '<div id="' . $this->translate('Email użytkownika', 'default', LOCALE) . '">' . $this->formElementErrors($user) . '</div>';
-    echo '<div id="' . $this->translate('Hasło', 'default', LOCALE) . '">' . $this->formElementErrors($password) . '</div>';
-    echo '<div id="' . $this->translate('Powtórz hasło', 'default', LOCALE) . '">' . $this->formElementErrors($sPassword) . '</div>';
-    echo '<div id="' . $this->translate('Potwierdź czy jesteś człowiekiem, wpisując teskt z obrazka.', 'default', LOCALE) . '">' . $this->formElementErrors($capt) . '</div>';
+echo '<div id="' . $this->translate('Email użytkownika', 'default', LOCALE) . '">' . $this->formElementErrors($user) . '</div>';
+echo '<div id="' . $this->translate('Hasło', 'default', LOCALE) . '">' . $this->formElementErrors($password) . '</div>';
+echo '<div id="' . $this->translate('Powtórz hasło', 'default', LOCALE) . '">' . $this->formElementErrors($sPassword) . '</div>';
+echo '<div id="' . $this->translate('Potwierdź czy jesteś człowiekiem, wpisując teskt z obrazka.', 'default', LOCALE) . '">' . $this->formElementErrors($capt) . '</div>';
 ?>
 <script>
     $('pre').addClass('cap');
     $('ul').addClass('hidden');
     pushToastMessageForm($('ul'));
-</script>
-<script>
-    var messages = [];
-    i = 0;
-</script>
-<?php if ($messages): ?>
-    <?php foreach ($messages as $message): ?>
-        <script>
-            messages[i++] = '<?= $message ?>';
-        </script>
-    <?php endforeach; ?>
-<?php endif; ?>
-<script>
-    for (var j = 0; j < messages.length; j++) {
-        $.toaster({
-            priority: 'success',
-            title: '<?= $this->translate('Sukces', 'default', LOCALE); ?>',
-            message: messages[j]
-        });
-    }
 </script>
 
 

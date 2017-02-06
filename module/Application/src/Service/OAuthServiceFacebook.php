@@ -65,7 +65,7 @@ class OAuthServiceFacebook implements OAuthServiceInterface
             'code' => $_GET['code']
         ]);
 
-        if ($user = $this->_provider->getResourceOwner($token)){
+        if ($user = $this->_provider->getResourceOwner($token)) {
             return [
                 'code' => 1,
                 'user' => $user

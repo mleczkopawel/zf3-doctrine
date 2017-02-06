@@ -8,6 +8,7 @@
 namespace Application\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
+
 /**
  * Class ProductRepository
  * @package Application\Entity\Repository

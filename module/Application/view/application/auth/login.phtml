@@ -20,27 +20,12 @@
     echo $this->form()->closeTag();
     ?>
 
-    <a class="btn btn-block btn-social btn-facebook" href="<?php echo $urlF ?>"><span class="fa fa-facebook"></span><?php echo $this->translate("Zaloguj przez Facebook", 'default', LOCALE); ?></a>
-    <a class="btn btn-block btn-social btn-google" href="<?php echo $urlG ?>"><span class="fa fa-google"></span><?php echo $this->translate("Zaloguj przez Google+", 'default', LOCALE); ?></a>
-    <a class="btn btn-block btn-danger" href="<?php echo $this->url('auth/register', ['locale' => LOCALE]) ?>"><?php echo $this->translate("Zarejestruj", 'default', LOCALE); ?></a>
+    <a class="btn btn-block btn-social btn-facebook" href="<?php echo $urlF ?>"><span
+                class="fa fa-facebook"></span><?php echo $this->translate("Zaloguj przez Facebook", 'default', LOCALE); ?>
+    </a>
+    <a class="btn btn-block btn-social btn-google" href="<?php echo $urlG ?>"><span
+                class="fa fa-google"></span><?php echo $this->translate("Zaloguj przez Google+", 'default', LOCALE); ?>
+    </a>
+    <a class="btn btn-block btn-danger"
+       href="<?php echo $this->url('auth/register', ['locale' => LOCALE]) ?>"><?php echo $this->translate("Zarejestruj", 'default', LOCALE); ?></a>
 </div>
-<script>
-    var messages = [];
-    i = 0;
-</script>
-<?php if ($messages): ?>
-    <?php foreach ($messages as $message): ?>
-        <script>
-            messages[i++] = '<?= $message ?>';
-        </script>
-    <?php endforeach; ?>
-<?php endif; ?>
-<script>
-    for (var j = 0; j < messages.length; j++) {
-        $.toaster({
-            priority: 'success',
-            title: '<?= $this->translate('Sukces', 'default', LOCALE); ?>',
-            message: messages[j]
-        });
-    }
-</script>

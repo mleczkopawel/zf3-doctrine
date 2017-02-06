@@ -8,7 +8,6 @@
 namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
-use Zend\Session\Container;
 use Zend\View\Model\ViewModel;
 
 /**
@@ -17,7 +16,6 @@ use Zend\View\Model\ViewModel;
  */
 class IndexController extends AbstractActionController
 {
-
     /**
      * @return ViewModel
      */

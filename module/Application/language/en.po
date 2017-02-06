@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ZendSkeletonApplication\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-05 23:08+0100\n"
-"PO-Revision-Date: 2017-02-05 23:08+0100\n"
+"POT-Creation-Date: 2017-02-06 21:33+0100\n"
+"PO-Revision-Date: 2017-02-06 21:34+0100\n"
 "Last-Translator: Łukasz Rodziewicz <lukasz@rodziewicz.com.pl>\n"
 "Language-Team: ZF Contibutors <zf-devteam@zend.com>\n"
 "Language: en\n"
@@ -17,9 +17,42 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../src/Controller/AuthController.php:102
-msgid "Zalogowano jako "
-msgstr "You are logged in as "
+#: ../src/Controller/AuthController.php:83
+msgid "Wylogowano"
+msgstr ""
+
+#: ../src/Controller/AuthController.php:86
+msgid "Zaakceptowano, teraz możesz się zalogować"
+msgstr ""
+
+#: ../src/Controller/AuthController.php:88
+msgid "Zarejestrowano, proszę sprawdzić maila"
+msgstr ""
+
+#: ../src/Controller/AuthController.php:113
+msgid "Użytkownik "
+msgstr ""
+
+#: ../src/Controller/AuthController.php:113
+msgid " nie został aktywowany, proszę sprawdzić email."
+msgstr ""
+
+#: ../src/Controller/AuthController.php:116
+msgid "Nie istnieje użytkownik "
+msgstr ""
+
+#: ../src/Controller/AuthController.php:116 ../src/Form/RegisterForm.php:96
+#: ../view/application/auth/login.phtml:30
+msgid "Zarejestruj"
+msgstr "Sign up"
+
+#: ../src/Controller/AuthController.php:119
+msgid "Złe hasło, reset hasła"
+msgstr ""
+
+#: ../src/Controller/AuthController.php:122
+msgid "Złe hasło"
+msgstr "Bad password"
 
 #: ../src/Filter/RegisterFilter.php:76
 msgid "Wprowadź minimum %min% znaków."
@@ -135,37 +168,38 @@ msgstr "Incorrect text, type again."
 msgid "Tekst z obrazka"
 msgstr "Enter Captcha"
 
-#: ../src/Form/RegisterForm.php:96 ../view/application/auth/login.phtml:25
-msgid "Zarejestruj"
-msgstr "Sign up"
-
-#: ../src/Service/MailService.php:19
+#: ../src/Service/MailService.php:20
 msgid "Zarejestrowany użytkownik"
 msgstr "New member registered"
 
-#: ../src/Service/MailService.php:19
+#: ../src/Service/MailService.php:20
 msgid "kliknij link aby potwierdzić"
 msgstr "Click the link to confirm"
 
-#: ../src/Service/MailService.php:22
+#: ../src/Service/MailService.php:23
 msgid "Witamy"
 msgstr "Welcome"
 
-#: ../view/application/auth/login.phtml:23
+#: ../view/application/auth/login.phtml:24
 msgid "Zaloguj przez Facebook"
 msgstr "Login with Facebook"
 
-#: ../view/application/auth/login.phtml:24
+#: ../view/application/auth/login.phtml:27
 msgid "Zaloguj przez Google+"
 msgstr "Login with Google+"
 
-#: ../view/application/index/index.phtml:18
+#: ../view/application/auth/login.phtml:47
+#: ../view/application/auth/register.phtml:55
 msgid "Sukces"
 msgstr "Success"
 
 #: ../view/layout/layout.phtml:6
 msgid "Sklep"
 msgstr "Shop"
+
+#: ../view/layout/layout.phtml:34
+msgid "Zalogowano jako "
+msgstr "You are logged in as "
 
 #~ msgid "Email użytkonika"
 #~ msgstr "User email"

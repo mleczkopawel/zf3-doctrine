@@ -124,6 +124,7 @@ class User implements MainDbInterface
     {
         return $this->id;
     }
+
     /**
      * @param int $id
      * @return User
@@ -133,6 +134,7 @@ class User implements MainDbInterface
         $this->id = $id;
         return $this;
     }
+
     /**
      * @return string
      */
@@ -144,6 +146,7 @@ class User implements MainDbInterface
             return $this->name;
         }
     }
+
     /**
      * @param string $name
      * @return User
@@ -153,6 +156,7 @@ class User implements MainDbInterface
         $this->name = $name;
         return $this;
     }
+
     /**
      * @return string
      */
@@ -160,6 +164,7 @@ class User implements MainDbInterface
     {
         return $this->password;
     }
+
     /**
      * @param string $password
      * @return User
@@ -335,17 +340,21 @@ class User implements MainDbInterface
     /**
      * @param $provider
      */
-    public function setProvider($provider) {
+    public function setProvider($provider)
+    {
         switch ($provider) {
             case 'facebook': {
                 $this->setFacebook(1);
-            } break;
+            }
+                break;
             case 'google': {
                 $this->setGoogle(1);
-            } break;
+            }
+                break;
             case 'local': {
                 $this->setLocal(1);
-            } break;
+            }
+                break;
         }
     }
 

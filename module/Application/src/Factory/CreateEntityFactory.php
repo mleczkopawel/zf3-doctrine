@@ -7,7 +7,9 @@
 
 namespace Application\Factory;
 
-use Application\Entity\Album;
+use Application\Entity\Category;
+use Application\Entity\File;
+use Application\Entity\Product;
 use Application\Entity\User;
 use Application\Interfaces\CreateEntityInterface;
 
@@ -19,17 +21,24 @@ class CreateEntityFactory implements CreateEntityInterface
 {
     /**
      * @param $entityName
-     * @return Album|User|bool
+     * @return Category|File|Product|User|bool
      */
-    public function create($entityName) {
+    public function create($entityName)
+    {
         switch ($entityName) {
-            case Album::class: {
-                return new Album();
-            } break;
             case User::class: {
                 return new User();
-            }
-             default: {
+            } break;
+            case File::class: {
+                return new File();
+            } break;
+            case Category::class: {
+                return new Category();
+            } break;
+            case Product::class: {
+                return new Product();
+            } break;
+            default: {
                 return false;
             }
         }

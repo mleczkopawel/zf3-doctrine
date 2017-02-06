@@ -11,6 +11,7 @@ use Application\Controller\AuthController;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
 use Zend\Session\Container;
+use Zf3\Flashmessenger\Controller\FlashmessengerController;
 
 /**
  * Class Module
@@ -26,6 +27,16 @@ class Module
     const VERSION = '3.0.2aaaasdasdasdasddev';
 
     /**
+     * Module constructor.
+     */
+    public function __construct()
+    {
+        $_SESSION['counter'] = 0;
+        $_SESSION['account_count'] = 0;
+    }
+
+
+    /**
      * @return mixed
      */
     public function getConfig()
@@ -36,7 +47,8 @@ class Module
     /**
      * @param MvcEvent $event
      */
-    public function onBootstrap(MvcEvent $event) {
+    public function onBootstrap(MvcEvent $event)
+    {
         $eventManager = $event->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
@@ -55,7 +67,8 @@ class Module
     /**
      * @param MvcEvent $event
      */
-    public function beforeDispatch(MvcEvent $event) {
+    public function beforeDispatch(MvcEvent $event)
+    {
         $response = $event->getResponse();
 
         $whiteList = [
@@ -65,6 +78,10 @@ class Module
             AuthController::class . '-callback',
             AuthController::class . '-register',
             AuthController::class . '-check',
+            AuthController::class . '-resetPassword',
+            FlashmessengerController::class . '-index',
+            FlashmessengerController::class . '-js',
+            FlashmessengerController::class . '-css',
         ];
 
         $controller = $event->getRouteMatch()->getParam('controller');
@@ -72,8 +89,6 @@ class Module
         $requestedResource = $controller . '-' . $action;
 
         $session = new Container('User');
-
-//        var_dump($session->offsetGet('name'));die;
 
         if (!$session->offsetExists('name')) {
             if ($requestedResource != AuthController::class . '-index' && !in_array($requestedResource, $whiteList)) {
@@ -89,5 +104,7 @@ class Module
     /**
      * @param MvcEvent $event
      */
-    public function afterDispatch(MvcEvent $event) {}
+    public function afterDispatch(MvcEvent $event)
+    {
+    }
 }

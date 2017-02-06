@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "93d8301cfe990d95001a664c4f8f68d8",
+    "content-hash": "c5522a194ebdd00a9e989e52b793d47e",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -313,16 +313,16 @@
         },
         {
             "name": "doctrine/dbal",
-            "version": "v2.5.10",
+            "version": "v2.5.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "fc376f7a61498e18520cd6fa083752a4ca08072b"
+                "reference": "1b1effbddbdc0f40d1c8f849f44bcddac4f52a48"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/fc376f7a61498e18520cd6fa083752a4ca08072b",
-                "reference": "fc376f7a61498e18520cd6fa083752a4ca08072b",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/1b1effbddbdc0f40d1c8f849f44bcddac4f52a48",
+                "reference": "1b1effbddbdc0f40d1c8f849f44bcddac4f52a48",
                 "shasum": ""
             },
             "require": {
@@ -380,7 +380,7 @@
                 "persistence",
                 "queryobject"
             ],
-            "time": "2017-01-23T23:17:10+00:00"
+            "time": "2017-02-04T21:20:13+00:00"
         },
         {
             "name": "doctrine/doctrine-module",
@@ -1066,17 +1066,58 @@
             "time": "2016-06-24T23:00:38+00:00"
         },
         {
-            "name": "league/oauth2-client",
-            "version": "2.1.0",
+            "name": "jenzri-nizar/zf3-flashmessenger",
+            "version": "v1.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/thephpleague/oauth2-client.git",
-                "reference": "3b9e297e6e09587b57a1a112d77b0162d429a4b3"
+                "url": "https://github.com/jenzri-nizar/zf3-flashmessenger.git",
+                "reference": "2f6f8fd0013767ac71f06e9eae9585c00f21dbaf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/oauth2-client/zipball/3b9e297e6e09587b57a1a112d77b0162d429a4b3",
-                "reference": "3b9e297e6e09587b57a1a112d77b0162d429a4b3",
+                "url": "https://api.github.com/repos/jenzri-nizar/zf3-flashmessenger/zipball/2f6f8fd0013767ac71f06e9eae9585c00f21dbaf",
+                "reference": "2f6f8fd0013767ac71f06e9eae9585c00f21dbaf",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Zf3\\Flashmessenger\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jenzri Nizar",
+                    "email": "jenzri.nizar.off@gmail.com"
+                }
+            ],
+            "description": "Zend Framework 3 flashmessenger",
+            "keywords": [
+                "Zend Framework 3",
+                "flashmessenger",
+                "zend"
+            ],
+            "time": "2016-08-20T09:53:35+00:00"
+        },
+        {
+            "name": "league/oauth2-client",
+            "version": "2.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thephpleague/oauth2-client.git",
+                "reference": "5f57366c99ac013ee9d78670c1fc0b9ca7871d95"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thephpleague/oauth2-client/zipball/5f57366c99ac013ee9d78670c1fc0b9ca7871d95",
+                "reference": "5f57366c99ac013ee9d78670c1fc0b9ca7871d95",
                 "shasum": ""
             },
             "require": {
@@ -1130,7 +1171,7 @@
                 "oauth2",
                 "single sign on"
             ],
-            "time": "2017-01-25T02:58:46+00:00"
+            "time": "2017-02-02T04:08:45+00:00"
         },
         {
             "name": "league/oauth2-facebook",
@@ -4333,16 +4374,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "5.7.9",
+            "version": "5.7.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "69f832b87c731d5cacad7f91948778fe98335fdd"
+                "reference": "a6ad2472daba76b0689042b7709f86d4f06bcaab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/69f832b87c731d5cacad7f91948778fe98335fdd",
-                "reference": "69f832b87c731d5cacad7f91948778fe98335fdd",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/a6ad2472daba76b0689042b7709f86d4f06bcaab",
+                "reference": "a6ad2472daba76b0689042b7709f86d4f06bcaab",
                 "shasum": ""
             },
             "require": {
@@ -4359,11 +4400,11 @@
                 "phpunit/php-text-template": "~1.2",
                 "phpunit/php-timer": "^1.0.6",
                 "phpunit/phpunit-mock-objects": "^3.2",
-                "sebastian/comparator": "~1.2.2",
+                "sebastian/comparator": "^1.2.4",
                 "sebastian/diff": "~1.2",
                 "sebastian/environment": "^1.3.4 || ^2.0",
                 "sebastian/exporter": "~2.0",
-                "sebastian/global-state": "^1.0 || ^2.0",
+                "sebastian/global-state": "^1.1",
                 "sebastian/object-enumerator": "~2.0",
                 "sebastian/resource-operations": "~1.0",
                 "sebastian/version": "~1.0|~2.0",
@@ -4411,7 +4452,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2017-01-28T06:14:33+00:00"
+            "time": "2017-02-05T15:31:31+00:00"
         },
         {
             "name": "phpunit/phpunit-mock-objects",

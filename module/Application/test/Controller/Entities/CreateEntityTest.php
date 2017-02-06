@@ -25,11 +25,12 @@ class CreateEntityTest extends PHPUnit_Framework_TestCase
     }
 
 
-    public function testCreateEntityTest() {
+    public function testCreateEntityTest()
+    {
         $createEntityFactory = new CreateEntityFactory();
         foreach ($this->entities as $entity) {
             $ent = $createEntityFactory->create($entity);
-            $this->assertInstanceOf($entity , $ent);
+            $this->assertInstanceOf($entity, $ent);
         }
     }
 }
