@@ -20,11 +20,11 @@ return [
             'orm_default' => [
                 'driverClass' => Driver::class,
                 'params' => [
-                    'host' => 'sql.mleczkop.nazwa.pl',
-                    'port' => '3306',
-                    'user' => 'mleczkop_1',
-                    'password' => 'Titanum!9',
-                    'dbname' => 'mleczkop_1',
+                    'host' => 'host',
+                    'port' => 'port',
+                    'user' => 'user',
+                    'password' => 'pass',
+                    'dbname' => 'dbname',
                 ],
             ],
         ],
