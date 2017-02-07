@@ -31,5 +31,6 @@ return [
     'Zend\Validator',
     'DoctrineModule',
     'DoctrineORMModule',
+    'Cron',
     'Application',
 ];
