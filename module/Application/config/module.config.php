@@ -124,6 +124,16 @@ return [
                             ],
                         ],
                     ],
+                    'resetPass' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/resetPass/:token/:id',
+                            'defaults' => [
+                                'controller' => AuthController::class,
+                                'action' => 'resetPassCallback',
+                            ],
+                        ],
+                    ],
                 ],
             ],
         ],

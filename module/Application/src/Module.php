@@ -8,6 +8,7 @@
 namespace Application;
 
 use Application\Controller\AuthController;
+use Cron\Controller\CronController;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
 use Zend\Session\Container;
@@ -79,9 +80,12 @@ class Module
             AuthController::class . '-register',
             AuthController::class . '-check',
             AuthController::class . '-resetPassword',
+            AuthController::class . '-resetPassCallback',
             FlashmessengerController::class . '-index',
             FlashmessengerController::class . '-js',
             FlashmessengerController::class . '-css',
+            CronController::class . '-index',
+            CronController::class . '-updateTokens',
         ];
 
         $controller = $event->getRouteMatch()->getParam('controller');

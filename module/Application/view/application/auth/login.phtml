@@ -10,7 +10,7 @@
     <?php
     $form->prepare();
     echo $this->form()->openTag($form);
-    $user = $form->get('name');
+    $user = $form->get('email');
     echo $this->formLabel($user);
     echo $this->formInput($user);
     $password = $form->get('password');

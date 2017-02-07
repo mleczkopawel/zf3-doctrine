@@ -53,7 +53,7 @@
                 $toaster.append(settings.toast.display($toast));
 
                 if (settings.donotdismiss.indexOf(priority) === -1) {
-                    var timeout = (typeof settings.timeout === 'number') ? settings.timeout : ((typeof settings.timeout === 'object') && (priority in settings.timeout)) ? settings.timeout[priority] : 1500;
+                    var timeout = (typeof settings.timeout === 'number') ? settings.timeout : ((typeof settings.timeout === 'object') && (priority in settings.timeout)) ? settings.timeout[priority] : 10000;
                     setTimeout(function () {
                         settings.toast.remove($toast, function () {
                             $toast.remove();
@@ -115,7 +115,7 @@
             },
 
             'debug': false,
-            'timeout': 5000,
+            'timeout': 10000,
             'stylesheet': null,
             'donotdismiss': []
         };
@@ -143,9 +143,4 @@
         settings = {};
         $.extend(settings, defaults);
     };
-
-    $('.js-close').on('click', function () {
-        // $('.js-close').
-        // toasting.
-    });
 })(jQuery);

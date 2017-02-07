@@ -68,9 +68,10 @@ class RegisterFilter implements InputFilterAwareInterface
     /**
      * Retrieve input filter
      *
+     * @param array $required
      * @return InputFilterInterface
      */
-    public function getInputFilter()
+    public function getInputFilter($required = [])
     {
         $strinLengthMessages = [
             StringLength::TOO_SHORT => $this->_translator->translate('Wprowadź minimum %min% znaków.', 'default', LOCALE),
@@ -82,7 +83,7 @@ class RegisterFilter implements InputFilterAwareInterface
 
             $inputFilter->add([
                 'name' => 'email',
-                'required' => true,
+                'required' => $required['name'],
                 'filters' => [
                     ['name' => StripTags::class],
                     ['name' => StringTrim::class],
@@ -125,6 +126,7 @@ class RegisterFilter implements InputFilterAwareInterface
 
             $inputFilter->add([
                 'name' => 'password',
+                'required' => $required['pass'],
                 'filters' => [
                     ['name' => StripTags::class],
                     ['name' => StringTrim::class],
@@ -144,6 +146,7 @@ class RegisterFilter implements InputFilterAwareInterface
 
             $inputFilter->add([
                 'name' => 'spassword',
+                'required' => $required['pass'],
                 'filters' => [
                     ['name' => StripTags::class],
                     ['name' => StringTrim::class],

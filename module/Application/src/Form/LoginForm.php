@@ -21,14 +21,15 @@ class LoginForm extends Form
     /**
      * LoginForm constructor.
      * @param int|null|string $translator
+     * @param array $required
      * @param null $name
      */
-    public function __construct($translator, $name = null)
+    public function __construct($translator, $required = [], $name = null)
     {
         parent::__construct($name = 'loginUser');
         $this->setAttribute('method', 'post');
         $this->add(array(
-            'name' => 'name',
+            'name' => 'email',
             'type' => Text::class,
             'options' => array(
                 'label' => $translator->translate('Email użytkownika', 'default', LOCALE),
@@ -36,9 +37,10 @@ class LoginForm extends Form
             'attributes' => array(
                 'placeholder' => $translator->translate('Email użytkownika', 'default', LOCALE),
                 'class' => 'form-control',
-                'required' => true,
+                'required' => $required['name'],
             ),
         ));
+
         $this->add(array(
             'name' => 'password',
             'type' => Password::class,
@@ -47,10 +49,25 @@ class LoginForm extends Form
             ),
             'attributes' => array(
                 'placeholder' => $translator->translate('Hasło', 'default', LOCALE),
+                'id' => 'password',
                 'class' => 'form-control',
-                'required' => true,
+                'required' => $required['pass'],
             ),
         ));
+
+        $this->add([
+            'name' => 'spassword',
+            'type' => Password::class,
+            'options' => [
+                'label' => $translator->translate('Powtórz hasło', 'default', LOCALE),
+            ],
+            'attributes' => [
+                'class' => 'form-control',
+                'placeholder' => $translator->translate('Powtórz hasło', 'default', LOCALE),
+                'required' => $required['pass'],
+            ],
+        ]);
+
         $this->add(array(
             'name' => 'createSubmit',
             'type' => Submit::class,
@@ -58,6 +75,7 @@ class LoginForm extends Form
                 'value' => $translator->translate('Zaloguj', 'default', LOCALE),
                 'class' => 'btn btn-primary btn-block',
                 'style' => 'margin-top: 2%',
+                'id' => 'submit',
             )
         ));
     }
