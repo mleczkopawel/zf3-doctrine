@@ -25,7 +25,7 @@ define('ROOT_PATH', dirname(__DIR__));
 
 $languages = require ROOT_PATH . '/config/languages.php';
 
-$locale = 'pl';
+$locale = 'fr';
 
 $uri = $_SERVER['REQUEST_URI'];
 $uri = explode('/', $uri);
