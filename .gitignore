@@ -6,9 +6,4 @@ data/cache/*
 !data/cache/.gitkeep
 #phpunit.xml
 ubuntu-xenial-16.04-cloudimg-console.log
-.idea/dataSources.local.xml
-.idea/dataSources/5a50bda8-b6ab-43cb-9fc7-b787021bc38f/_src_/
-.idea/dataSources/5a50bda8-b6ab-43cb-9fc7-b787021bc38f/_staging_/
-.idea/dataSources/7f113600-34e8-44cc-bea6-813f2ef76c8c/_src_/
-.idea/dataSources/7f113600-34e8-44cc-bea6-813f2ef76c8c/_staging_/
-.idea/workspace.xml
+.idea
