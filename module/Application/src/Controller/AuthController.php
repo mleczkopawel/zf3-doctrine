@@ -157,7 +157,11 @@ class AuthController extends AbstractActionController
         $session->offsetSet('name', $authResult->getName());
         $_SESSION['counter'] = 1;
 
-        $this->redirect()->toRoute('application', ['locale' => LOCALE]);
+        if ($user->isIsAdmin()) {
+            $this->redirect()->toRoute('zf-admin');
+        } else {
+            $this->redirect()->toRoute('application', ['locale' => LOCALE]);
+        }
     }
 
     /**

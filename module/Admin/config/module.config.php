@@ -14,7 +14,7 @@ use Zend\Router\Http\Segment;
 return [
     'router' => [
         'routes' => [
-            'cron' => [
+            'zf-admin' => [
                 'type' => Segment::class,
                 'options' => [
                     'route' => '[/:locale]/zf-admin[/:action]',
