@@ -130,8 +130,7 @@ class AuthController extends AbstractActionController
             } else {
                 if ($_SESSION['account_count'] > 4) {
                     $this->flashMessenger()->addErrorMessage($this->_translator->translate('Złe hasło', 'default', LOCALE) . ' <a class=\"btn btn-block btn-default\" style=\"color: red;\" href=\"reset\">' . $this->_translator->translate("Reset hasła", 'default', LOCALE) . '</a>');
-                }
-                else {
+                } else {
                     $this->flashMessenger()->addErrorMessage($this->_translator->translate('Złe hasło', 'default', LOCALE));
                     $_SESSION['account_count']++;
                 }
@@ -143,6 +142,22 @@ class AuthController extends AbstractActionController
             'urlF' => $urlF,
             'urlG' => $urlG,
         ]);
+    }
+
+    /**
+     * @param $authResult
+     */
+    private function setSession($authResult)
+    {
+        $user = $this->_em->getRepository(User::class)->findOneBy(['email' => $authResult->getEmail()]);
+        $user->setDateLastLogin(new \DateTime());
+        $this->_em->persist($user);
+        $this->_em->flush();
+        $session = new Container('User');
+        $session->offsetSet('name', $authResult->getName());
+        $_SESSION['counter'] = 1;
+
+        $this->redirect()->toRoute('application', ['locale' => LOCALE]);
     }
 
     /**
@@ -178,6 +193,37 @@ class AuthController extends AbstractActionController
         return new ViewModel([
             'form' => $form,
         ]);
+    }
+
+    /**
+     * @param $user
+     * @param $data
+     */
+    private function registerMethod($user, $data)
+    {
+        $password = (new UserPassword())->create($data['password']);
+        $token = (new TokenGenerator())->string(30);
+        $user->setEmail($data['email']);
+        $user->setPassword($password);
+        $user->setDateAdd(new \DateTime());
+        $user->setProvider('local');
+        $user->setIsActive(0);
+        $user->setToken($token);
+
+        $this->_em->persist($user);
+        $this->_em->flush();
+
+        $dataSend = [
+            'id' => $user->getId(),
+            'email' => $data['email'],
+            'token' => $token,
+        ];
+
+        $mailService = new MailService();
+        $mailService->send($dataSend, $this->_translator);
+        $_SESSION['counter'] = -3;
+
+        $this->redirect()->toRoute('application', ['locale' => LOCALE]);
     }
 
     /**
@@ -225,52 +271,6 @@ class AuthController extends AbstractActionController
         $this->_em->flush();
 
         $this->setSession($auth['user']);
-    }
-
-    /**
-     * @param $authResult
-     */
-    private function setSession($authResult)
-    {
-        $user = $this->_em->getRepository(User::class)->findOneBy(['email' => $authResult->getEmail()]);
-        $user->setDateLastLogin(new \DateTime());
-        $this->_em->persist($user);
-        $this->_em->flush();
-        $session = new Container('User');
-        $session->offsetSet('name', $authResult->getName());
-        $_SESSION['counter'] = 1;
-
-        $this->redirect()->toRoute('application', ['locale' => LOCALE]);
-    }
-
-    /**
-     * @param $user
-     * @param $data
-     */
-    private function registerMethod($user, $data) {
-        $password = (new UserPassword())->create($data['password']);
-        $token = (new TokenGenerator())->string(30);
-        $user->setEmail($data['email']);
-        $user->setPassword($password);
-        $user->setDateAdd(new \DateTime());
-        $user->setProvider('local');
-        $user->setIsActive(0);
-        $user->setToken($token);
-
-        $this->_em->persist($user);
-        $this->_em->flush();
-
-        $dataSend = [
-            'id' => $user->getId(),
-            'email' => $data['email'],
-            'token' => $token,
-        ];
-
-        $mailService = new MailService();
-        $mailService->send($dataSend, $this->_translator);
-        $_SESSION['counter'] = -3;
-
-        $this->redirect()->toRoute('application', ['locale' => LOCALE]);
     }
 
     /**

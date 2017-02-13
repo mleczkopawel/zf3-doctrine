@@ -34,7 +34,6 @@
         if (isset($_SESSION['User']) && $_SESSION['counter'] == 1)
             $this->flashMessenger()->addSuccessMessage($this->translate('Zalogowano jako ', 'default', LOCALE) . $_SESSION['User']['name']);
     ?>
-    <?php  ?>
     <?= $this->content ?>
 </div>
 <?= $this->inlineScript() ?>

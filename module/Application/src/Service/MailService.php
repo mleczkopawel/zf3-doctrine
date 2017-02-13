@@ -51,7 +51,7 @@ class MailService
     {
         $host = $_SERVER['HTTP_HOST'];
         $path = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-        $baseurl = "http://" . $host . $path . "/";
+        $baseurl = "https://" . $host . $path . "/";
         return $baseurl;
     }
 }

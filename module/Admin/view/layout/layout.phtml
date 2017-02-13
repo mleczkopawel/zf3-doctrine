@@ -1,0 +1,83 @@
+<?php
+/**
+ * User: Paweł Mleczko
+ * Date: 13.02.2017
+ * Time: 20:34
+ */
+?>
+<?php echo $this->doctype(); ?>
+
+<html lang="pl_PL">
+<head>
+    <meta charset="utf-8">
+    <title><?php echo $this->translate("Sklep - Admin", 'default', LOCALE); ?></title>
+
+    <?php echo $this->headMeta()
+        ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+        ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+    ?>
+
+    <!-- Le styles -->
+    <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+        ->prependStylesheet($this->basePath('css/bootstrap.min.css'))
+        ->prependStylesheet($this->basePath('css/sb-admin.css')); ?>
+
+    <!-- Scripts -->
+    <?php echo $this->headScript()
+        ->appendFile($this->basePath('/js/jquery-3.1.0.min.js'))
+        ->appendFile($this->basePath('/js/bootstrap.min.js')); ?>
+</head>
+<body>
+<?php
+if (isset($_SESSION['User']) && $_SESSION['counter'] == 1)
+    $this->flashMessenger()->addSuccessMessage($this->translate('Zalogowano jako ', 'default', LOCALE) . $_SESSION['User']['name']);
+?>
+<div id="wrapper">
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="<?php echo $this->url('application'); ?>">Strona Główna</a>
+        </div>
+        <ul class="nav navbar-right top-nav">
+            <li class="dropdown">
+<!--                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>--><?php //echo $this->identity()->getRole() . ' ' . $this->identity()->getName(); ?><!--<b class="caret"></b></a>-->
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="<?php echo $this->url('auth/logout') ?>" class="js-logout"><i class="fa fa-fw fa-power-off"></i> Wyloguj</a href="#">
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav side-nav" style="left: 0">
+                <li>
+<!--                    <a href="--><?php //echo $this->url('plants'); ?><!--"><i class="fa fa-fw fa-bar-chart-o"></i> Rośliny</a>-->
+                </li>
+                <li>
+<!--                    <a href="--><?php //echo $this->url('fertilizers'); ?><!--"><i class="fa fa-fw fa-table"></i> Nawozy</a>-->
+                </li>
+                <li>
+<!--                    <a href="--><?php //echo $this->url('surfaces'); ?><!--"><i class="fa fa-fw fa-edit"></i> Powierzchnia</a>-->
+                </li>
+                <li>
+<!--                    <a href="--><?php //echo $this->url('areas'); ?><!--"><i class="fa fa-fw fa-desktop"></i> Obszary</a>-->
+                </li>
+                <li>
+<!--                    <a href="--><?php //echo $this->url('measurments'); ?><!--"><i class="fa fa-fw fa-wrench"></i> Doświadczenia</a>-->
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <?php echo $this->content; ?>
+        </div>
+    </div>
+</div>
+</body>
+</html>

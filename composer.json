@@ -36,7 +36,8 @@
   "autoload": {
     "psr-4": {
       "Application\\": "module/Application/src/",
-      "Cron\\": "module/Cron/src/"
+      "Cron\\": "module/Cron/src/",
+      "Admin\\": "module/Admin/src/"
     }
   },
   "autoload-dev": {
