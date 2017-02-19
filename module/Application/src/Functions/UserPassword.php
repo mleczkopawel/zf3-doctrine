@@ -16,16 +16,21 @@ class UserPassword
     /**
      * @var string
      */
-    private $_salt = 'ksd645ger98r51sv68sr35srgs8rg4srvb324rs78';
+    private $_salt = 'salt';
+    /**
+     * @var null|string
+     */
+    private $_method = 'sha1';
 
-    private $_method = 'both';
     /**
      * UserPassword constructor.
      * @param null $_method
      */
     public function __construct($_method = null)
     {
-        $this->_method = $_method;
+        if (!is_null($_method)) {
+            $this->_method = $_method;
+        }
     }
 
     /**
@@ -36,10 +41,8 @@ class UserPassword
     {
         if ($this->_method == 'md5') {
             return md5($this->_salt . $password);
-        } elseif ($this->_method == 'sha1') {
-            return sha1($this->_salt . $password);
         } else {
-            return sha1($this->_salt . md5($this->_salt . $password));
+            return sha1($this->_salt . $password);
         }
     }
 
@@ -52,10 +55,8 @@ class UserPassword
     {
         if ($this->_method == 'md5') {
             return $hash == md5($this->_salt . $password);
-        } elseif ($this->_method == 'sha1') {
-            return $hash == sha1($this->_salt . $password);
         } else {
-            return $hash == sha1($this->_salt . md5($this->_salt . $password));
+            return $hash == sha1($this->_salt . $password);
         }
     }
 }
