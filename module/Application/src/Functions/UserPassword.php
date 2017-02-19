@@ -16,7 +16,7 @@ class UserPassword
     /**
      * @var string
      */
-    private $_salt = 'ksd645ger98r51sv68sr35srgs8rg4srvb324rs78';
+    private $_salt = 'salt';
     /**
      * @var null|string
      */
