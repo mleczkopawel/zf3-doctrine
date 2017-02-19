@@ -1,1 +1,0 @@
-Make Factory to Authorize
