@@ -24,7 +24,7 @@ class LoginForm extends Form
      * @param array $required
      * @param null $name
      */
-    public function __construct($translator, $required = [], $name = null)
+    public function __construct($translator, $required = [], $subValue, $name = null)
     {
         parent::__construct($name = 'loginUser');
         $this->setAttribute('method', 'post');
@@ -72,7 +72,7 @@ class LoginForm extends Form
             'name' => 'createSubmit',
             'type' => Submit::class,
             'attributes' => array(
-                'value' => $translator->translate('Zaloguj', 'default', LOCALE),
+                'value' => $translator->translate($subValue, 'default', LOCALE),
                 'class' => 'btn btn-primary btn-block',
                 'style' => 'margin-top: 2%',
                 'id' => 'submit',

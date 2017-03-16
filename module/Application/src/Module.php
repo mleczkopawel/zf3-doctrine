@@ -32,8 +32,7 @@ class Module
      */
     public function __construct()
     {
-        $_SESSION['counter'] = 0;
-        $_SESSION['account_count'] = 0;
+//        $_SESSION['account_count'] = 0;
     }
 
 
@@ -80,7 +79,8 @@ class Module
             AuthController::class . '-register',
             AuthController::class . '-check',
             AuthController::class . '-resetPassword',
-            AuthController::class . '-resetPassCallback',
+            AuthController::class . '-resetPassCall',
+            AuthController::class . '-resetpc',
             FlashmessengerController::class . '-index',
             FlashmessengerController::class . '-js',
             FlashmessengerController::class . '-css',
@@ -88,9 +88,13 @@ class Module
             CronController::class . '-updateTokens',
         ];
 
+//        var_dump($whiteList);die;
+
         $controller = $event->getRouteMatch()->getParam('controller');
         $action = $event->getRouteMatch()->getParam('action');
         $requestedResource = $controller . '-' . $action;
+
+//        var_dump($requestedResource);die;
 
         $session = new Container('User');
 

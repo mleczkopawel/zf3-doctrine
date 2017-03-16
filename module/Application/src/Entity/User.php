@@ -28,11 +28,10 @@ class User implements MainDbInterface
     private $id;
 
     /**
-     * @var boolean
-     *
-     * @ORM\Column(name="is_admin", type="boolean", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Application\Entity\Role")
+     * @ORM\JoinColumn(name="role", referencedColumnName="id")
      */
-    private $isAdmin = 0;
+    private $role;
 
     /**
      * @var string
@@ -359,24 +358,6 @@ class User implements MainDbInterface
     }
 
     /**
-     * @return bool
-     */
-    public function isIsAdmin()
-    {
-        return $this->isAdmin;
-    }
-
-    /**
-     * @param bool $isAdmin
-     * @return User
-     */
-    public function setIsAdmin($isAdmin)
-    {
-        $this->isAdmin = $isAdmin;
-        return $this;
-    }
-
-    /**
      * @return mixed
      */
     public function getAvatarId()
@@ -394,5 +375,22 @@ class User implements MainDbInterface
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getRole()
+    {
+        return $this->role;
+    }
+
+    /**
+     * @param mixed $role
+     * @return User
+     */
+    public function setRole($role)
+    {
+        $this->role = $role;
+        return $this;
+    }
 
 }

@@ -36,7 +36,7 @@ class RegisterForm extends Form
             ],
             'attributes' => [
                 'placeholder' => $translator->translate('Email użytkownika', 'default', LOCALE),
-                'class' => 'form-control',
+                'class' => 'form-control js-email',
                 'required' => true,
             ],
         ]);
@@ -49,7 +49,7 @@ class RegisterForm extends Form
             ],
             'attributes' => [
                 'placeholder' => $translator->translate('Hasło', 'default', LOCALE),
-                'class' => 'form-control',
+                'class' => 'form-control js-pass',
                 'required' => true,
             ],
         ]);
@@ -61,7 +61,7 @@ class RegisterForm extends Form
                 'label' => $translator->translate('Powtórz hasło', 'default', LOCALE),
             ],
             'attributes' => [
-                'class' => 'form-control',
+                'class' => 'form-control js-spass',
                 'placeholder' => $translator->translate('Powtórz hasło', 'default', LOCALE),
                 'required' => true,
             ],
@@ -75,7 +75,7 @@ class RegisterForm extends Form
                 'label' => $translator->translate('Potwierdź czy jesteś człowiekiem, wpisując teskt z obrazka.', 'default', LOCALE),
                 'captcha' => [
                     'class' => 'Figlet',
-                    'wordLen' => 6,
+                    'wordLen' => 4,
                     'expiration' => 600,
                     'messages' => [
                         'badCaptcha' => $translator->translate('Niepoprawny tekst, wpisz jeszcze raz.', 'default', LOCALE),
@@ -83,7 +83,7 @@ class RegisterForm extends Form
                 ],
             ],
             'attributes' => [
-                'class' => 'form-control',
+                'class' => 'form-control js-capt',
                 'placeholder' => $translator->translate('Tekst z obrazka', 'default', LOCALE),
                 'required' => true,
             ]
@@ -94,7 +94,7 @@ class RegisterForm extends Form
             'type' => Submit::class,
             'attributes' => [
                 'value' => $translator->translate('Zarejestruj', 'default', LOCALE),
-                'class' => 'btn btn-primary btn-block',
+                'class' => 'btn btn-primary btn-block js-sub',
                 'style' => 'margin-top: 2%',
             ]
         ]);

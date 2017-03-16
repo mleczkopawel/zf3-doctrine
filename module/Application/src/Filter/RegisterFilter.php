@@ -118,8 +118,8 @@ class RegisterFilter implements InputFilterAwareInterface
                                 Hostname::INVALID_LOCAL_NAME => $this->_translator->translate('Wpisany lokalny adres sieci, lokalne adresy sieciowe nie są akceptowane.', 'default', LOCALE),
                                 Hostname::INVALID_URI => $this->_translator->translate('Niepoprawny adres URI.', 'default', LOCALE),
                                 Hostname::UNKNOWN_TLD => $this->_translator->translate('Nie potrafię rozpoznać adresu.', 'default', LOCALE),
-                            ]
-                        ]
+                            ],
+                        ],
                     ],
                 ],
             ]);

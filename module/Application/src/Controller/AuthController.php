@@ -71,9 +71,23 @@ class AuthController extends AbstractActionController
     /**
      *
      */
+    private function loginLayout() {
+        $this->layout()->setTemplate('layout/login');
+    }
+
+    /**
+     *
+     */
+    private function registerLayout() {
+        $this->layout()->setTemplate('layout/register');
+    }
+
+    /**
+     *
+     */
     public function indexAction()
     {
-        $this->redirect()->toRoute('auth/login', ['locale' => LOCALE]);
+        $this->redirect()->toRoute('auth/login');
     }
 
     /**
@@ -81,34 +95,16 @@ class AuthController extends AbstractActionController
      */
     public function loginAction()
     {
-        if ($_SESSION['counter'] == -1) {
-            $this->flashMessenger()->addMessage($this->_translator->translate('Wylogowano', 'default', LOCALE));
-            $_SESSION['counter'] = 1;
-        } elseif ($_SESSION['counter'] == -2) {
-            $this->flashMessenger()->addMessage($this->_translator->translate('Zaakceptowano, teraz możesz się zalogować', 'default', LOCALE));
-            $_SESSION['counter'] = 1;
-        } elseif ($_SESSION['counter'] == -3) {
-            $this->flashMessenger()->addMessage($this->_translator->translate('Zarejestrowano, proszę sprawdzić maila', 'default', LOCALE));
-            $_SESSION['counter'] = 1;
-        } elseif ($_SESSION['counter'] == -4) {
-            $this->flashMessenger()->addMessage($this->_translator->translate('Został wysłany email z linkiem do resetu hasła, proszę sprawdzić maila', 'default', LOCALE));
-            $_SESSION['counter'] = 1;
-        } elseif ($_SESSION['counter'] == -6) {
-            $this->flashMessenger()->addMessage($this->_translator->translate('Coś poszło nie tak, nie istnieje użytkownik...', 'default', LOCALE));
-            $_SESSION['counter'] = 1;
-        } elseif ($_SESSION['counter'] == -7) {
-            $this->flashMessenger()->addMessage($this->_translator->translate('Hasło zostało zmienione, możesz się zalogować', 'default', LOCALE));
-            $_SESSION['counter'] = 1;
-        }
+        $this->loginLayout();
         $this->_translator->addTranslationFile('gettext', ROOT_PATH . '/module/Application/language/' . LOCALE . '.mo');
         $facebook = (new OAuthServiceFactory())->create('fb');
         $google = (new OAuthServiceFactory())->create('google');
+        $resp = [];
 
         $urlF = $facebook->generateAuthButton();
         $urlG = $google->generateAuthButton();
 
-        $form = new LoginForm($this->_translator, ['name' => true, 'pass' => true], null);
-
+        $form = new LoginForm($this->_translator, ['name' => true, 'pass' => true],'Zaloguj', null);
         $request = $this->getRequest();
         if ($request->isPost()) {
             $data = $request->getPost();
@@ -123,18 +119,18 @@ class AuthController extends AbstractActionController
                 if ($authResult->isIsActive()) {
                     $this->setSession($authResult);
                 } else {
-                    $this->flashMessenger()->addWarningMessage($this->_translator->translate('Użytkownik ', 'default', LOCALE) . '<b>' . $data['email'] . '</b>' . $this->_translator->translate(' nie został aktywowany, proszę sprawdzić email', 'default', LOCALE));
+                    $resp[] = $this->_translator->translate('Użytkownik ', 'default', LOCALE) . '<b>' . $data['email'] . '</b>' . $this->_translator->translate(' nie został aktywowany, proszę sprawdzić email', 'default', LOCALE);
+                    $resp[] = $this->_translator->translate('Błąd', 'default', LOCALE);
+                    $resp[] = 0;
                 }
             } elseif ($authResult->getCode() == -1) {
-                $this->flashMessenger()->addErrorMessage($this->_translator->translate('Nie istnieje użytkownik ', 'default', LOCALE) . '<b>' . $data['email'] . '</b> <a class=\"btn btn-block btn-default\" style=\"color: red;\" href=\"register\">' . $this->_translator->translate("Zarejestruj", 'default', LOCALE) . '</a>');
+                $resp[] = $this->_translator->translate('Użytkownik ', 'default', LOCALE) . '<b>' . $data['email'] . '</b>' . $this->_translator->translate(' nie istnieje', 'default', LOCALE);
+                $resp[] = $this->_translator->translate('Ooops...', 'default', LOCALE);
+                $resp[] = 2;
             } else {
-                if ($_SESSION['account_count'] > 4) {
-                    $this->flashMessenger()->addErrorMessage($this->_translator->translate('Złe hasło', 'default', LOCALE) . ' <a class=\"btn btn-block btn-default\" style=\"color: red;\" href=\"reset\">' . $this->_translator->translate("Reset hasła", 'default', LOCALE) . '</a>');
-                }
-                else {
-                    $this->flashMessenger()->addErrorMessage($this->_translator->translate('Złe hasło', 'default', LOCALE));
-                    $_SESSION['account_count']++;
-                }
+                $resp[] = $this->_translator->translate('Złe hasło', 'default', LOCALE);
+                $resp[] = $this->_translator->translate('Błąd', 'default', LOCALE);
+                $resp[] = 1;
             }
         }
 
@@ -142,6 +138,7 @@ class AuthController extends AbstractActionController
             'form' => $form,
             'urlF' => $urlF,
             'urlG' => $urlG,
+            'resp' => json_encode($resp),
         ]);
     }
 
@@ -150,6 +147,8 @@ class AuthController extends AbstractActionController
      */
     public function registerAction()
     {
+        $this->registerLayout();
+        $resp = [];
         $this->_translator->addTranslationFile('gettext', ROOT_PATH . '/module/Application/language/' . LOCALE . '.mo');
         $form = new RegisterForm($this->_translator, null);
         $filter = new RegisterFilter();
@@ -166,10 +165,12 @@ class AuthController extends AbstractActionController
                 if (!$user) {
                     $user = $this->_cef->create(User::class);
                     $this->registerMethod($user, $data);
-                } elseif ($user->getGoogle() || $user->getFacebook()) {
+                } elseif (($user->getGoogle() && !$user->getLocal()) || ($user->getFacebook() && !$user->getLocal())) {
                     $this->registerMethod($user, $data);
                 } else {
-                    $this->flashMessenger()->addErrorMessage($this->_translator->translate('Użytkownik istnieje', 'default', LOCALE) . ' <a class=\"btn btn-block btn-default\" style=\"color: red;\" href=\"reset\">' . $this->_translator->translate("Reset hasła", 'default', LOCALE) . '</a>');
+                    $resp[] = $this->_translator->translate('Użytkownik ', 'default', LOCALE) . '<b>' . $data['email'] . '</b>' . $this->_translator->translate(' istnieje', 'default', LOCALE);
+                    $resp[] = $this->_translator->translate('Błąd', 'default', LOCALE);
+                    $resp[] = 2;
                 }
             }
         }
@@ -177,6 +178,7 @@ class AuthController extends AbstractActionController
 
         return new ViewModel([
             'form' => $form,
+            'resp' => json_encode($resp),
         ]);
     }
 
@@ -233,14 +235,15 @@ class AuthController extends AbstractActionController
     private function setSession($authResult)
     {
         $user = $this->_em->getRepository(User::class)->findOneBy(['email' => $authResult->getEmail()]);
+        $_SESSION['account_count'] = 0;
         $user->setDateLastLogin(new \DateTime());
         $this->_em->persist($user);
         $this->_em->flush();
         $session = new Container('User');
         $session->offsetSet('name', $authResult->getName());
-        $_SESSION['counter'] = 1;
+        $session->offsetSet('role', $user->getRole()->getName());
 
-        $this->redirect()->toRoute('application', ['locale' => LOCALE]);
+        $this->redirect()->toRoute('home');
     }
 
     /**
@@ -268,9 +271,11 @@ class AuthController extends AbstractActionController
 
         $mailService = new MailService();
         $mailService->send($dataSend, $this->_translator);
-        $_SESSION['counter'] = -3;
+        setcookie('toast', $this->_translator->translate('Zarejestrowano, proszę sprawdzić maila', 'default', LOCALE), time() + 10);
+        setcookie('title', $this->_translator->translate('Sukces', 'default', LOCALE), time() + 10);
+        setcookie('state', 3, time() + 10);
 
-        $this->redirect()->toRoute('application', ['locale' => LOCALE]);
+        $this->redirect()->toRoute('application');
     }
 
     /**
@@ -281,10 +286,12 @@ class AuthController extends AbstractActionController
         $this->_as->clearIdentity();
         $session = new Container('User');
         $session->getManager()->getStorage()->clear('User');
-        $_SESSION['counter'] = -1;
         $_SESSION['account_count'] = 0;
 
-        $this->redirect()->toRoute('auth/login', ['locale' => LOCALE]);
+        setcookie('toast', 'Wylogowano', time() + 10);
+        setcookie('title', 'Info', time() + 10);
+        setcookie('state', '2', time() + 10);
+        $this->redirect()->toRoute('auth/login');
     }
 
     /**
@@ -292,16 +299,18 @@ class AuthController extends AbstractActionController
      */
     public function checkAction()
     {
-        $id = $this->params()->fromRoute('id');
-        $token = $this->params()->fromRoute('token');
+        $id = $this->params()->fromQuery('id');
+        $token = $this->params()->fromQuery('token');
         $user = $this->_em->getRepository(User::class)->findOneBy(['id' => $id, 'token' => $token]);
         $user->setIsActive(1);
 
         $this->_em->persist($user);
         $this->_em->flush();
-        $_SESSION['counter'] = -2;
+        setcookie('toast', $this->_translator->translate('Aktywowano', 'default', LOCALE), time() + 10);
+        setcookie('title', $this->_translator->translate('Sukces', 'default', LOCALE), time() + 10);
+        setcookie('state', 2, time() + 10);
 
-        $this->redirect()->toRoute('auth/login', ['locale' => LOCALE]);
+        $this->redirect()->toRoute('auth/login');
     }
 
     /**
@@ -309,12 +318,9 @@ class AuthController extends AbstractActionController
      */
     public function resetPasswordAction()
     {
-        $_SESSION['account_count'] = 0;
-        if ($_SESSION['counter'] == -5) {
-            $this->flashMessenger()->addMessage($this->_translator->translate('Użytkownik o podanym mailu nie istnieje, spróbuj jeszcze raz', 'default', LOCALE));
-            $_SESSION['counter'] = 1;
-        }
-        $form = new LoginForm($this->_translator, ['name' => true, 'pass' => false], null);
+        $this->loginLayout();
+        $resp = [];
+        $form = new LoginForm($this->_translator, ['name' => true, 'pass' => false],'Wyślij email', null);
         $filter = new RegisterFilter();
         $filter->setTranslator($this->_translator);
         $form->setInputFilter($filter->getInputFilter(['name' => true, 'pass' => false]));
@@ -334,29 +340,34 @@ class AuthController extends AbstractActionController
 
                     $mailService = new MailService();
                     $mailService->resetPassword($data, $this->_translator);
-                    $_SESSION['counter'] = -4;
-                    $this->redirect()->toRoute('auth/login', ['locale' => LOCALE]);
+                    setcookie('toast', 'Proszę sprawdzić maila', time() + 10);
+                    setcookie('title', 'Sukces', time() + 10);
+                    setcookie('state', '2', time() + 10);
+                    $this->redirect()->toRoute('auth/login');
                 } else {
-                    $_SESSION['counter'] = -5;
-                    $this->redirect()->toRoute('auth/reset', ['locale' => LOCALE]);
+                    $resp[] = $this->_translator->translate('Użytkownik ', 'default', LOCALE) . '<b>' . $data['email'] . '</b>' . $this->_translator->translate(' istnieje', 'default', LOCALE);
+                    $resp[] = $this->_translator->translate('Błąd', 'default', LOCALE);
+                    $resp[] = 0;
                 }
             }
         }
 
         return new ViewModel([
             'form' => $form,
+            'resp' => json_encode($resp),
         ]);
     }
 
     /**
      * @return ViewModel
      */
-    public function resetPassCallbackAction()
+    public function resetPassCallAction()
     {
-        $id = $this->params()->fromRoute('id');
-        $token = $this->params()->fromRoute('token');
+        $this->loginLayout();
+        $id = $this->params()->fromQuery('id');
+        $token = $this->params()->fromQuery('token');
         $user = $this->_em->getRepository(User::class)->findOneBy(['id' => $id, 'token' => $token]);
-        $form = new LoginForm($this->_translator, ['name' => false, 'pass' => true], null);
+        $form = new LoginForm($this->_translator, ['name' => false, 'pass' => true],'Zresetuj', null);
         $filter = new RegisterFilter();
         $filter->setTranslator($this->_translator);
         $form->setInputFilter($filter->getInputFilter(['name' => false, 'pass' => true]));
@@ -375,17 +386,22 @@ class AuthController extends AbstractActionController
                     $this->_em->persist($user);
                     $this->_em->flush();
 
-                    $_SESSION['counter'] = -7;
-                    $this->redirect()->toRoute('auth/login', ['locale' => LOCALE]);
+                    setcookie('toast', 'Teraz możesz się zalogować', time() + 10);
+                    setcookie('title', 'Sukces', time() + 10);
+                    setcookie('state', '3', time() + 10);
+                    $this->redirect()->toRoute('auth/login');
                 }
             }
         } else {
-            $_SESSION['counter'] = -6;
-            $this->redirect()->toRoute('auth/login', ['locale' => LOCALE]);
+            setcookie('toast', 'Użytkownik nie istnieje!!!', time() + 10);
+            setcookie('title', 'Błąd', time() + 10);
+            setcookie('state', '0', time() + 10);
+            $this->redirect()->toRoute('auth/login');
         }
 
         return new ViewModel([
             'form' => $form,
         ]);
     }
+
 }

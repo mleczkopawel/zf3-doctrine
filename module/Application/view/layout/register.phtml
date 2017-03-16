@@ -1,0 +1,80 @@
+<?= $this->doctype() ?>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>INSPINIA | Register</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <?= $this->headMeta()
+        ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+        ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+    ?>
+    <?php $this->FlashMsg(); ?>
+    <!-- Le styles -->
+    <?= $this->headLink(['rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'])
+        ->prependStylesheet($this->basePath('inspinia/css/plugins/bootstrapSocial/bootstrap-social.css'))
+        ->prependStylesheet($this->basePath('inspinia/css/plugins/textSpinners/spinners.css'))
+        ->prependStylesheet($this->basePath('inspinia/css/style.css'))
+        ->prependStylesheet($this->basePath('inspinia/css/animate.css'))
+        ->prependStylesheet($this->basePath('inspinia/font-awesome/css/font-awesome.css'))
+        ->prependStylesheet($this->basePath('inspinia/css/bootstrap.min.css'))
+    ?>
+
+    <!-- Scripts -->
+    <?= $this->headScript()
+        ->prependFile($this->basePath('inspinia/js/plugins/validate/jquery.validate.min.js'))
+        ->prependFile($this->basePath('inspinia/js/plugins/jquery-ui/jquery-ui.min.js'))
+        ->prependFile($this->basePath('inspinia/js/plugins/toastr/toastr.min.js'))
+        ->prependFile($this->basePath('inspinia/js/plugins/pwstrength/pwstrength-bootstrap.min.js'))
+        ->prependFile($this->basePath('inspinia/js/plugins/pwstrength/zxcvbn.js'))
+        ->prependFile($this->basePath('inspinia/js/plugins/pace/pace.min.js'))
+        ->prependFile($this->basePath('inspinia/js/inspinia.js'))
+        ->prependFile($this->basePath('inspinia/js/plugins/slimscroll/jquery.slimscroll.min.js'))
+        ->prependFile($this->basePath('inspinia/js/plugins/metisMenu/jquery.metisMenu.js'))
+        ->prependFile($this->basePath('inspinia/js/bootstrap.min.js'))
+        ->prependFile($this->basePath('inspinia/js/jquery-3.1.1.min.js'))
+    ?>
+    <script>
+        toastr.options = {
+            closeButton: true,
+            progressBar: true,
+            preventDuplicates: true,
+            positionClass: 'toast-top-right',
+            onclick: null
+        };
+
+        function makeToast(title, content, state) {
+            switch (state) {
+                case 0: toastr.error(content, title); break;
+                case 1: toastr.warning(content, title); break;
+                case 2: toastr.info(content, title); break;
+                case 3: toastr.success(content, title); break;
+            }
+        }
+    </script>
+</head>
+
+<body class="black-bg">
+
+<div class="middle-box text-center loginscreen   animated fadeInDown">
+    <div>
+        <div>
+            <img src="<?php echo $this->basePath('img/logo.png'); ?>" style="width: 250px">
+        </div>
+        <?= $this->content ?>
+        <p class="m-t"></p>
+    </div>
+</div>
+<?= $this->inlineScript() ?>
+</body>
+
+</html>

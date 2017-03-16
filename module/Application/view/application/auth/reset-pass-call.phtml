@@ -1,0 +1,38 @@
+<?php
+/**
+ * User: mlecz
+ * Date: 07.02.2017
+ * Time: 11:58
+ */
+?>
+
+<div class="row">
+    <?php
+    $form->prepare();
+    echo $this->form()->openTag($form);
+    $password = $form->get('password');
+    echo $this->formLabel($password);
+    echo $this->formInput($password);
+    $sPassword = $form->get('spassword');
+    echo $this->formLabel($sPassword);
+    echo $this->formInput($sPassword);
+    echo $this->formSubmit($form->get('createSubmit'));
+    echo $this->form()->closeTag();
+    ?>
+</div>
+<!--<script>-->
+<!--    $(document).ready(function() {-->
+<!--        $('#password').val('');-->
+<!--        $('#submit').val('--><?php //echo $this->translate('Zmień hasło', 'default', LOCALE); ?><!--');-->
+<!--    });-->
+<!--//</script>-->
+<?php
+echo '<div id="' . $this->translate('Hasło', 'default', LOCALE) . '">' . $this->formElementErrors($password) . '</div>';
+echo '<div id="' . $this->translate('Powtórz hasło', 'default', LOCALE) . '">' . $this->formElementErrors($sPassword) . '</div>';
+?>
+<script>
+    $('ul').addClass('hidden');
+    pushToastMessageForm($('ul'));
+</script>
+
+

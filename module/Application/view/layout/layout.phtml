@@ -1,10 +1,9 @@
 <?= $this->doctype() ?>
-
-<html lang="en">
+<html>
 <head>
     <meta charset="utf-8">
-    <title><?php echo $this->translate("Sklep", 'default', LOCALE); ?></title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INSPINIA | Main view</title>
     <?= $this->headMeta()
         ->appendName('viewport', 'width=device-width, initial-scale=1.0')
         ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
@@ -12,31 +11,163 @@
     <?php $this->FlashMsg(); ?>
     <!-- Le styles -->
     <?= $this->headLink(['rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'])
-        ->prependStylesheet($this->basePath('css/style.css'))
-        ->prependStylesheet($this->basePath('css/toast.css'))
-        ->prependStylesheet($this->basePath('css/bootstrap-social.css'))
-        ->prependStylesheet($this->basePath('css/font-awesome.css'))
-        ->prependStylesheet($this->basePath('css/bootstrap-theme.min.css'))
-        ->prependStylesheet($this->basePath('css/bootstrap.min.css'))
+        ->prependStylesheet($this->basePath('inspinia/css/style.css'))
+        ->prependStylesheet($this->basePath('inspinia/css/animate.css'))
+        ->prependStylesheet($this->basePath('inspinia/font-awesome/css/font-awesome.css'))
+        ->prependStylesheet($this->basePath('inspinia/css/bootstrap.min.css'))
     ?>
 
     <!-- Scripts -->
     <?= $this->headScript()
-        ->prependFile($this->basePath('js/bootstrap.min.js'))
-        ->prependFile($this->basePath('js/pawel_functions.js'))
-        ->prependFile($this->basePath('js/jquery.toaster.js'))
-        ->prependFile($this->basePath('js/jquery-3.1.0.min.js'))
+        ->prependFile($this->basePath('inspinia/js/plugins/toastr/toastr.min.js'))
+        ->prependFile($this->basePath('inspinia/js/plugins/pace/pace.min.js'))
+        ->prependFile($this->basePath('inspinia/js/inspinia.js'))
+        ->prependFile($this->basePath('inspinia/js/plugins/slimscroll/jquery.slimscroll.min.js'))
+        ->prependFile($this->basePath('inspinia/js/plugins/metisMenu/jquery.metisMenu.js'))
+        ->prependFile($this->basePath('inspinia/js/bootstrap.min.js'))
+        ->prependFile($this->basePath('inspinia/js/jquery-3.1.1.min.js'))
     ?>
+    <script>
+        function makeToast(title, content, state) {
+            toastr.options = {
+                closeButton: true,
+                progressBar: true,
+                preventDuplicates: true,
+                positionClass: 'toast-top-right',
+                onclick: null
+            };
+
+            switch (state) {
+                case 0: toastr.error(content, title); break;
+                case 1: toastr.warning(content, title); break;
+                case 2: toastr.info(content, title); break;
+                case 3: toastr.success(content, title); break;
+                case '0': toastr.error(content, title); break;
+                case '1': toastr.warning(content, title); break;
+                case '2': toastr.info(content, title); break;
+                case '3': toastr.success(content, title); break;
+            }
+        }
+
+        function getCookie(cname) {
+            var name = cname + "=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var ca = decodedCookie.split(';');
+            for(var i = 0; i <ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+        var inter = setInterval(function () {
+            var cookie = getCookie('toast');
+            var stateC = getCookie('state');
+            var title = getCookie('title');
+            if (cookie != '') {
+                tmpCookie = cookie.split('+');
+                cookie = '';
+                for (var i = 0; i < tmpCookie.length; i++) {
+                    cookie += tmpCookie[i] + ' ';
+                }
+                makeToast(title, cookie, stateC);
+                console.log(cookie);
+                clearInterval(inter);
+            }
+        }, 1000);
+    </script>
 </head>
 <body>
-<div class="container">
-    <?php
-        if (isset($_SESSION['User']) && $_SESSION['counter'] == 1)
-            $this->flashMessenger()->addSuccessMessage($this->translate('Zalogowano jako ', 'default', LOCALE) . $_SESSION['User']['name']);
-    ?>
-    <?php  ?>
-    <?= $this->content ?>
+<script>
+<?php $_SESSION['account_count']++; if ($_SESSION['User'] && ($_SESSION['account_count'] == 1 || $_SESSION['account_count'] == 2)): ?>
+    makeToast('Sukces', 'Zalogowano jako \<b\><?php echo $_SESSION['User']['name'] ?>\</b\>', 3);
+<?php endif; ?>
+</script>
+<div id="wrapper">
+    <nav class="navbar-default navbar-static-side" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav metismenu" id="side-menu">
+                <li class="nav-header">
+                    <div class="dropdown profile-element">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold"><?php echo $_SESSION['User']['name'] ?></strong>
+                             </span> <span class="text-muted text-xs block"><?php echo $_SESSION['User']['role'] ?> <b class="caret"></b></span> </span> </a>
+                        <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                            <li><a href="<?php echo $this->url('auth/logout'); ?>"><?php echo $this->translate("Wyloguj", 'default', LOCALE); ?></a></li>
+                        </ul>
+                    </div>
+                    <div class="logo-element">
+                        IN+
+                    </div>
+                </li>
+                <?= $this->navigation('navigation')->menu()->setMinDepth(0)->setMaxDepth(3)->setUlClass('nav metismenu js-menu') ?>
+            </ul>
+
+        </div>
+    </nav>
+
+    <div id="page-wrapper" class="gray-bg">
+        <div class="row border-bottom">
+            <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
+                <div class="navbar-header">
+                    <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+                    <form role="search" class="navbar-form-custom" method="post" action="#">
+                        <div class="form-group">
+                            <input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search">
+                        </div>
+                    </form>
+                </div>
+                <ul class="nav navbar-top-links navbar-right">
+                    <li>
+                        <a href="<?php echo $this->url('auth/logout'); ?>">
+                            <i class="fa fa-sign-out"></i> <?php echo $this->translate("Wyloguj", 'default', LOCALE); ?>
+                        </a>
+                    </li>
+                </ul>
+
+            </nav>
+        </div>
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+                <div class="col-lg-12">
+                <?= $this->navigation('navigation')->breadcrumbs()->setMinDepth(0)->setPartial('partial/breadcrumb') ?>
+                    <div class="text-center m-t-lg">
+                        <?= $this->content ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="pull-right">
+                10GB of <strong>250GB</strong> Free.
+            </div>
+            <div>
+                <strong>Copyright</strong> Example Company &copy; 2014-2017
+            </div>
+        </div>
+
+    </div>
 </div>
 <?= $this->inlineScript() ?>
+<script>
+    $(document).ready(function () {
+        $('.collapse').addClass('nav nav-second-level');
+        for (var i = 0; i < $('.js-menu').children().length; i++) {
+            var child = $($($('.js-menu').children()[i]).children()[0]);
+            child.html(addIcon(child.html()) + '<span class="nav-label">' + child.html() + '</span>');
+        }
+    });
+
+    function addIcon(name) {
+        switch(name) {
+            case 'Home': return '<i class="fa fa-home"></i>';
+            case 'Application': return '<i class="fa fa-laptop"></i>';
+        }
+    }
+</script>
 </body>
 </html>

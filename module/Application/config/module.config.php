@@ -33,33 +33,20 @@ return [
             'application' => [
                 'type' => Segment::class,
                 'options' => [
-                    'route' => '[/:locale]/application[/:action]',
+                    'route' => '/application[/:action]',
                     'defaults' => [
                         'controller' => Controller\IndexController::class,
                         'action' => 'index',
-                        'locale' => LOCALE,
-                    ],
-                ],
-            ],
-            'doctrine' => [
-                'type' => Segment::class,
-                'options' => [
-                    'route' => '[/:locale]/doctrine[/:action]',
-                    'defaults' => [
-                        'controller' => Controller\DoctrineController::class,
-                        'action' => 'index',
-                        'locale' => LOCALE,
                     ],
                 ],
             ],
             'auth' => [
                 'type' => Segment::class,
                 'options' => [
-                    'route' => '[/:locale]/auth',
+                    'route' => '/auth',
                     'defaults' => [
                         'controller' => AuthController::class,
                         'action' => 'index',
-                        'locale' => LOCALE,
                     ],
                 ],
                 'may_terminate' => true,
@@ -105,9 +92,9 @@ return [
                         ],
                     ],
                     'check' => [
-                        'type' => Segment::class,
+                        'type' => Literal::class,
                         'options' => [
-                            'route' => '/check/:token/:id',
+                            'route' => '/check',
                             'defaults' => [
                                 'controller' => AuthController::class,
                                 'action' => 'check',
@@ -125,14 +112,38 @@ return [
                         ],
                     ],
                     'resetPass' => [
-                        'type' => Segment::class,
+                        'type' => Literal::class,
                         'options' => [
-                            'route' => '/resetPass/:token/:id',
+                            'route' => '/resetPass',
                             'defaults' => [
                                 'controller' => AuthController::class,
-                                'action' => 'resetPassCallback',
+                                'action' => 'resetPassCall',
                             ],
                         ],
+                    ],
+                ],
+            ],
+        ],
+    ],
+    'navigation' => [
+        'default' => [
+            [
+                'label' => 'Home',
+                'route' => 'home',
+            ],
+            [
+                'label' => 'Application',
+                'route' => 'application',
+                'pages' => [
+                    [
+                        'label'  => 'Index',
+                        'route'  => 'application',
+                        'action' => 'index',
+                    ],
+                    [
+                        'label'  => 'Second',
+                        'route'  => 'application',
+                        'action' => 'second',
                     ],
                 ],
             ],
@@ -141,7 +152,6 @@ return [
     'controllers' => [
         'factories' => [
             Controller\IndexController::class => InvokableFactory::class,
-            Controller\DoctrineController::class => Factory\DoctrineControllerFactory::class,
             Controller\AuthController::class => Factory\AuthControllerFactory::class
         ],
     ],

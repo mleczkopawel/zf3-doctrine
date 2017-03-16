@@ -6,36 +6,101 @@
  */
 
 ?>
-<div class="row">
+<div id="register-container" class="row">
     <?php
     $form->prepare();
     echo $this->form()->openTag($form);
-    $user = $form->get('email');
-    echo $this->formLabel($user);
-    echo $this->formInput($user);
-    $password = $form->get('password');
-    echo $this->formLabel($password);
-    echo $this->formInput($password);
-    $sPassword = $form->get('spassword');
-    echo $this->formLabel($sPassword);
-    echo $this->formInput($sPassword);
-    $capt = $form->get('capt');
-    echo $this->formLabel($capt);
-    echo $this->formElement($capt);
-    echo $this->formSubmit($form->get('createSubmit'));
+    ?>
+    <div class="form-group">
+    <?php
+        $user = $form->get('email');
+        echo $this->formLabel($user);
+        echo $this->formInput($user);
+    ?>
+    </div>
+    <div class="form-group">
+    <?php
+        $password = $form->get('password');
+        echo $this->formLabel($password);
+        echo $this->formInput($password);
+    ?>
+    </div>
+    <div class="form-group">
+    <?php
+        $sPassword = $form->get('spassword');
+        echo $this->formLabel($sPassword);
+        echo $this->formInput($sPassword);
+    ?>
+    </div>
+    <div class="form-group">
+        <div class="pwstrength_viewport_progress"></div>
+    </div>
+    <div class="form-group">
+    <?php
+        $capt = $form->get('capt');
+        echo $this->formLabel($capt);
+        echo $this->formElement($capt);
+    ?>
+    </div>
+    <?php
+        echo $this->formSubmit($form->get('createSubmit'));
+    ?>
+    <p class="text-muted text-center"><small><?php echo $this->translate('Masz już konto?', 'default', LOCALE) ?></small></p>
+    <a class="btn btn-sm btn-white btn-block" href="<?php echo $this->url('auth/login', ['locale' => LOCALE]) ?>"><?php echo $this->translate('Zaloguj', 'default', LOCALE) ?></a>
+    <?php
     echo $this->form()->closeTag();
     ?>
 </div>
 <?php
-echo '<div id="' . $this->translate('Email użytkownika', 'default', LOCALE) . '">' . $this->formElementErrors($user) . '</div>';
-echo '<div id="' . $this->translate('Hasło', 'default', LOCALE) . '">' . $this->formElementErrors($password) . '</div>';
-echo '<div id="' . $this->translate('Powtórz hasło', 'default', LOCALE) . '">' . $this->formElementErrors($sPassword) . '</div>';
-echo '<div id="' . $this->translate('Potwierdź czy jesteś człowiekiem, wpisując teskt z obrazka.', 'default', LOCALE) . '">' . $this->formElementErrors($capt) . '</div>';
+    echo '<div id="' . $this->translate('Email użytkownika', 'default', LOCALE) . '">' . $this->formElementErrors($user) . '</div>';
+    echo '<div id="' . $this->translate('Hasło', 'default', LOCALE) . '">' . $this->formElementErrors($password) . '</div>';
+    echo '<div id="' . $this->translate('Powtórz hasło', 'default', LOCALE) . '">' . $this->formElementErrors($sPassword) . '</div>';
+    echo '<div id="' . $this->translate('Potwierdź czy jesteś człowiekiem, wpisując teskt z obrazka.', 'default', LOCALE) . '">' . $this->formElementErrors($capt) . '</div>';
 ?>
 <script>
+    $(document).ready(function () {
+        $('#createUser').validate({
+            rules: {
+                email: {
+                    required: true,
+                    minlength: 6
+                },
+                password: {
+                    required: true,
+                    minlength: 8
+                },
+                spassword: {
+                    reqiured: true,
+                    minlength: 8
+                },
+                'capt[imput]': {
+                    required: true
+                }
+            }
+        });
+    });
+
+    var options = {};
+    options.ui = {
+        container: "#register-container",
+        showVerdictsInsideProgressBar: true,
+        viewports: {
+            progress: ".pwstrength_viewport_progress"
+        }
+    };
+    options.common = {
+        zxcvbn: true,
+        userInputs: ['.js-email']
+    };
+    $('.js-pass').pwstrength(options);
+
     $('pre').addClass('cap');
     $('ul').addClass('hidden');
-    pushToastMessageForm($('ul'));
+    $('ul').each(function () {
+        makeToast('Błąd', $(this).find('li').html(), 0);
+    });
+    var response = JSON.parse('<?php echo $this->resp ?>');
+    makeToast(response[1], response[0], response[2]);
 </script>
 
 

@@ -31,7 +31,8 @@
     "zendframework/zend-authentication": "^2.5",
     "zendframework/zend-captcha": "^2.6",
     "zendframework/zend-mail": "^2.7",
-    "jenzri-nizar/zf3-flashmessenger": "^1.0"
+    "jenzri-nizar/zf3-flashmessenger": "^1.0",
+    "zendframework/zend-navigation": "^2.8"
   },
   "autoload": {
     "psr-4": {
