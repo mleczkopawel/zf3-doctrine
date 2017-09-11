@@ -243,7 +243,7 @@ class AuthController extends AbstractActionController
         $session->offsetSet('name', $authResult->getName());
         $session->offsetSet('role', $user->getRole()->getName());
 
-        $this->redirect()->toRoute('home');
+        $this->redirect()->toRoute('rooms');
     }
 
     /**

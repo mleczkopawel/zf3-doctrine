@@ -23,10 +23,10 @@ use Zend\ServiceManager\Factory\InvokableFactory;
 return [
     'router' => [
         'routes' => [
-            'main' => [
+            'admin' => [
                 'type' => Segment::class,
                 'options' => [
-                    'route' => '/main',
+                    'route' => '/admin',
                     'defaults' => [
                         'controller' => MainController::class,
                         'action' => 'index',
@@ -132,7 +132,7 @@ return [
         'default' => [
             [
                 'label' => 'Główna',
-                'route' => 'main',
+                'route' => 'admin',
             ],
             [
                 'label' => 'Pokoje',

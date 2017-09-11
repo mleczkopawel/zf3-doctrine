@@ -47,6 +47,22 @@ class RoomController extends AbstractActionController
     }
 
     public function editAction() {
+        $request = $this->getRequest();
+        $room = new Room();
+
+        $this->_rf->get('type')->setValueOptions($room->getTypes());
+
+        if ($request->isPost()) {
+            $data = $request->getPost();
+            $room->setIsFree(true)->setName($data['name'])->setType($data['type']);
+            $room->setDateAdd(new \DateTime());
+
+            $this->_em->persist($room);
+            $this->_em->flush();
+
+            $this->redirect()->toRoute('rooms');
+        }
+
         return new ViewModel([
             'roomForm' => $this->_rf,
         ]);

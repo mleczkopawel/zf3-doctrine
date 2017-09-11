@@ -30,7 +30,8 @@ class RoomFactory implements FactoryInterface
     {
         $em = $container->get(EntityManager::class);
         $formManager = $container->get('FormElementManager');
+        $roomForm = $formManager->get(RoomForm::class);
 
-        return new RoomController($em, $formManager->get(RoomForm::class));
+        return new RoomController($em, $roomForm);
     }
 }

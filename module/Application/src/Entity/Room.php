@@ -21,6 +21,20 @@ class Room
 {
 
     /**
+     * @var array
+     */
+    private $types = [
+        1 => 'Jednoosobowy',
+        2 => 'Dwuosobowy - jedno łóżko',
+        3 => 'Dwuosobowy - dwa łóżka',
+        4 => 'Trzyosobowy - dwa łóżka',
+        5 => 'Trzyosobowy - trzy łóżka',
+        6 => 'Czteroosobowy - dwa łóżka',
+        7 => 'Czteroosobowy - trzy łóżka',
+        8 => 'Czteroosobowy - cztery łóżka',
+    ];
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="id", type="integer", nullable=false, length=11)
@@ -114,7 +128,7 @@ class Room
      */
     public function getType()
     {
-        return $this->type;
+        return $this->types[$this->type];
     }
 
     /**
@@ -197,5 +211,12 @@ class Room
     {
         $this->photos = $photos;
         return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getTypes() {
+        return $this->types;
     }
 }
