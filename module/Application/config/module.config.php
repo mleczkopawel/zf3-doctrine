@@ -8,6 +8,7 @@
 namespace Application;
 
 use Application\Controller\AuthController;
+use Application\Controller\RoomController;
 use Application\Entity\User;
 use Doctrine\ORM\EntityManager;
 use Zend\I18n\Translator\TranslatorInterface;
@@ -20,22 +21,22 @@ use Zend\ServiceManager\Factory\InvokableFactory;
 return [
     'router' => [
         'routes' => [
-            'home' => [
-                'type' => Literal::class,
+            'main' => [
+                'type' => Segment::class,
                 'options' => [
-                    'route' => '/',
+                    'route' => '/main',
                     'defaults' => [
-                        'controller' => Controller\IndexController::class,
+                        'controller' => MainController::class,
                         'action' => 'index',
                     ],
                 ],
             ],
-            'application' => [
+            'rooms' => [
                 'type' => Segment::class,
                 'options' => [
-                    'route' => '/application[/:action]',
+                    'route' => '/rooms',
                     'defaults' => [
-                        'controller' => Controller\IndexController::class,
+                        'controller' => RoomController::class,
                         'action' => 'index',
                     ],
                 ],
@@ -128,22 +129,17 @@ return [
     'navigation' => [
         'default' => [
             [
-                'label' => 'Home',
-                'route' => 'home',
+                'label' => 'Główna',
+                'route' => 'main',
             ],
             [
-                'label' => 'Application',
-                'route' => 'application',
+                'label' => 'Pokoje',
+                'route' => 'rooms',
                 'pages' => [
                     [
-                        'label'  => 'Index',
-                        'route'  => 'application',
-                        'action' => 'index',
-                    ],
-                    [
-                        'label'  => 'Second',
-                        'route'  => 'application',
-                        'action' => 'second',
+                        'label'  => 'Pokoje',
+                        'route'  => 'rooms',
+                        'action' => 'rooms',
                     ],
                 ],
             ],
@@ -151,8 +147,9 @@ return [
     ],
     'controllers' => [
         'factories' => [
-            Controller\IndexController::class => InvokableFactory::class,
-            Controller\AuthController::class => Factory\AuthControllerFactory::class
+            Controller\AuthController::class => Factory\AuthControllerFactory::class,
+            Controller\RoomController::class => Factory\RoomFactory::class,
+            Controller\MainController::class => InvokableFactory::class
         ],
     ],
     'doctrine' => [

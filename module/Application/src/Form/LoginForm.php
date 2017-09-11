@@ -22,6 +22,7 @@ class LoginForm extends Form
      * LoginForm constructor.
      * @param int|null|string $translator
      * @param array $required
+     * @param $subValue
      * @param null $name
      */
     public function __construct($translator, $required = [], $subValue, $name = null)

@@ -1,1 +1,2 @@
 php vendor\doctrine\doctrine-module\bin\doctrine-module orm:schema-tool:update --force
+php vendor/doctrine/doctrine-module/bin/doctrine-module orm:schema-tool:update --force

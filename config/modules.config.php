@@ -34,5 +34,6 @@ return [
     'DoctrineORMModule',
     'Cron',
     'Application',
+    'Front',
     'ZendDeveloperTools',
 ];

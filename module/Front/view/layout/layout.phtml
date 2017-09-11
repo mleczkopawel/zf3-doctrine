@@ -1,0 +1,111 @@
+<?= $this->doctype() ?>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INSPINIA | Main view</title>
+    <?= $this->headMeta()
+        ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+        ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+    ?>
+    <?php $this->FlashMsg(); ?>
+    <!-- Le styles -->
+    <?= $this->headLink(['rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'])
+        ->prependStylesheet($this->basePath('inspinia/css/style.css'))
+        ->prependStylesheet($this->basePath('inspinia/css/animate.css'))
+        ->prependStylesheet($this->basePath('inspinia/font-awesome/css/font-awesome.css'))
+        ->prependStylesheet($this->basePath('inspinia/css/bootstrap.min.css'))
+    ?>
+
+    <!-- Scripts -->
+    <?= $this->headScript()
+        ->prependFile($this->basePath('inspinia/js/plugins/toastr/toastr.min.js'))
+        ->prependFile($this->basePath('inspinia/js/plugins/pace/pace.min.js'))
+        ->prependFile($this->basePath('inspinia/js/inspinia.js'))
+        ->prependFile($this->basePath('inspinia/js/plugins/slimscroll/jquery.slimscroll.min.js'))
+        ->prependFile($this->basePath('inspinia/js/plugins/metisMenu/jquery.metisMenu.js'))
+        ->prependFile($this->basePath('inspinia/js/bootstrap.min.js'))
+        ->prependFile($this->basePath('inspinia/js/jquery-3.1.1.min.js'))
+    ?>
+    <script>
+        function makeToast(title, content, state) {
+            toastr.options = {
+                closeButton: true,
+                progressBar: true,
+                preventDuplicates: true,
+                positionClass: 'toast-top-right',
+                onclick: null
+            };
+
+            switch (state) {
+                case 0: toastr.error(content, title); break;
+                case 1: toastr.warning(content, title); break;
+                case 2: toastr.info(content, title); break;
+                case 3: toastr.success(content, title); break;
+                case '0': toastr.error(content, title); break;
+                case '1': toastr.warning(content, title); break;
+                case '2': toastr.info(content, title); break;
+                case '3': toastr.success(content, title); break;
+            }
+        }
+
+        function getCookie(cname) {
+            var name = cname + "=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var ca = decodedCookie.split(';');
+            for(var i = 0; i <ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+        var inter = setInterval(function () {
+            var cookie = getCookie('toast');
+            var stateC = getCookie('state');
+            var title = getCookie('title');
+            if (cookie != '') {
+                tmpCookie = cookie.split('+');
+                cookie = '';
+                for (var i = 0; i < tmpCookie.length; i++) {
+                    cookie += tmpCookie[i] + ' ';
+                }
+                makeToast(title, cookie, stateC);
+                console.log(cookie);
+                clearInterval(inter);
+            }
+        }, 1000);
+    </script>
+</head>
+<body>
+<script>
+    <?php $_SESSION['account_count']++; if ($_SESSION['User'] && ($_SESSION['account_count'] == 1 || $_SESSION['account_count'] == 2)): ?>
+    makeToast('Sukces', 'Zalogowano jako \<b\><?php echo $_SESSION['User']['name'] ?>\</b\>', 3);
+    <?php endif; ?>
+</script>
+<div id="wrapper">
+    <?= $this->content ?>
+</div>
+<?= $this->inlineScript() ?>
+<script>
+    $(document).ready(function () {
+        $('.collapse').addClass('nav nav-second-level');
+        for (var i = 0; i < $('.js-menu').children().length; i++) {
+            var child = $($($('.js-menu').children()[i]).children()[0]);
+            child.html(addIcon(child.html()) + '<span class="nav-label">' + child.html() + '</span>');
+        }
+    });
+
+    function addIcon(name) {
+        switch(name) {
+            case 'Home': return '<i class="fa fa-home"></i>';
+            case 'Application': return '<i class="fa fa-laptop"></i>';
+        }
+    }
+</script>
+</body>
+</html>
