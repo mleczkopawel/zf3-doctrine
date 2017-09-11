@@ -9,6 +9,7 @@
 namespace Application\Factory;
 
 use Application\Controller\RoomController;
+use Application\Form\RoomForm;
 use Doctrine\ORM\EntityManager;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
@@ -28,7 +29,8 @@ class RoomFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         $em = $container->get(EntityManager::class);
+        $formManager = $container->get('FormElementManager');
 
-        return new RoomController($em);
+        return new RoomController($em, $formManager->get(RoomForm::class));
     }
 }

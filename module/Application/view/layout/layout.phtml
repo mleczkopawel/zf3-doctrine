@@ -13,12 +13,14 @@
     <?= $this->headLink(['rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'])
         ->prependStylesheet($this->basePath('inspinia/css/style.css'))
         ->prependStylesheet($this->basePath('inspinia/css/animate.css'))
+        ->prependStylesheet($this->basePath('inspinia/css/plugins/dataTables/datatables.min.css'))
         ->prependStylesheet($this->basePath('inspinia/font-awesome/css/font-awesome.css'))
         ->prependStylesheet($this->basePath('inspinia/css/bootstrap.min.css'))
     ?>
 
     <!-- Scripts -->
     <?= $this->headScript()
+        ->prependFile($this->basePath('inspinia/js/plugins/dataTables/datatables.min.js'))
         ->prependFile($this->basePath('inspinia/js/plugins/toastr/toastr.min.js'))
         ->prependFile($this->basePath('inspinia/js/plugins/pace/pace.min.js'))
         ->prependFile($this->basePath('inspinia/js/inspinia.js'))
@@ -135,7 +137,7 @@
             <div class="row">
                 <div class="col-lg-12">
                 <?= $this->navigation('navigation')->breadcrumbs()->setMinDepth(0)->setPartial('partial/breadcrumb') ?>
-                    <div class="text-center m-t-lg">
+                    <div class="text-center m-t-lg" style="text-align: left">
                         <?= $this->content ?>
                     </div>
                 </div>

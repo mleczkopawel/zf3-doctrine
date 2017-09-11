@@ -10,6 +10,8 @@ namespace Application;
 use Application\Controller\AuthController;
 use Application\Controller\RoomController;
 use Application\Entity\User;
+use Application\Factory\RoomFormFactory;
+use Application\Form\RoomForm;
 use Doctrine\ORM\EntityManager;
 use Zend\I18n\Translator\TranslatorInterface;
 use Zend\I18n\Translator\TranslatorServiceFactory;
@@ -34,7 +36,7 @@ return [
             'rooms' => [
                 'type' => Segment::class,
                 'options' => [
-                    'route' => '/rooms',
+                    'route' => '/rooms[/:action]',
                     'defaults' => [
                         'controller' => RoomController::class,
                         'action' => 'index',
@@ -137,10 +139,15 @@ return [
                 'route' => 'rooms',
                 'pages' => [
                     [
-                        'label'  => 'Pokoje',
+                        'label'  => 'Lista',
                         'route'  => 'rooms',
-                        'action' => 'rooms',
+                        'action' => 'index',
                     ],
+                    [
+                        'label' => 'Dodaj',
+                        'route' => 'rooms',
+                        'action' => 'edit',
+                    ]
                 ],
             ],
         ],
@@ -151,6 +158,11 @@ return [
             Controller\RoomController::class => Factory\RoomFactory::class,
             Controller\MainController::class => InvokableFactory::class
         ],
+    ],
+    'form_elements' => [
+        'factories' => [
+            RoomForm::class => RoomFormFactory::class,
+        ]
     ],
     'doctrine' => [
         'authentication' => [

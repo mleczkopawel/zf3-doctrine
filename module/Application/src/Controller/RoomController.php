@@ -10,6 +10,7 @@ namespace Application\Controller;
 
 
 use Application\Entity\Room;
+use Application\Form\RoomForm;
 use Doctrine\ORM\EntityManager;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
@@ -25,13 +26,17 @@ class RoomController extends AbstractActionController
      */
     private $_em;
 
+    private $_rf;
+
     /**
      * RoomController constructor.
      * @param EntityManager $entityManager
+     * @param RoomForm $roomForm
      */
-    public function __construct(EntityManager $entityManager)
+    public function __construct(EntityManager $entityManager, RoomForm $roomForm)
     {
         $this->_em = $entityManager;
+        $this->_rf = $roomForm;
     }
 
     public function indexAction() {
@@ -42,6 +47,8 @@ class RoomController extends AbstractActionController
     }
 
     public function editAction() {
-
+        return new ViewModel([
+            'roomForm' => $this->_rf,
+        ]);
     }
 }

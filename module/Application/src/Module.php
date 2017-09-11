@@ -12,7 +12,6 @@ use Cron\Controller\CronController;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
 use Zend\Session\Container;
-use Zf3\Flashmessenger\Controller\FlashmessengerController;
 
 /**
  * Class Module
